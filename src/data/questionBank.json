@@ -1,0 +1,138 @@
+{
+    "1": [
+        {
+            "id": "q1_1",
+            "question": "Citics Agent là gì?",
+            "options": [
+                "Nhân viên sale",
+                "Đối tác kinh doanh",
+                "Cộng tác viên"
+            ],
+            "correct": 1
+        },
+        {
+            "id": "q1_2",
+            "question": "Giá trị cốt lõi nào KHÔNG thuộc về Citics?",
+            "options": [
+                "Chính trực",
+                "Sáng tạo",
+                "Làm việc riêng lẻ"
+            ],
+            "correct": 2
+        },
+        {
+            "id": "q1_3",
+            "question": "Mục tiêu của Citics năm 2026 là gì?",
+            "options": [
+                "Mở rộng toàn cầu",
+                "Thống lĩnh thị trường nội địa",
+                "Giữ nguyên quy mô"
+            ],
+            "correct": 1
+        },
+        {
+            "id": "q1_4",
+            "question": "Citics hoạt động trong lĩnh vực nào?",
+            "options": [
+                "Y tế",
+                "Bất động sản công nghệ",
+                "Giáo dục"
+            ],
+            "correct": 1
+        },
+        {
+            "id": "q1_5",
+            "question": "Màu sắc chủ đạo của thương hiệu Citics là gì?",
+            "options": [
+                "Đỏ & Vàng",
+                "Xanh dương & Xanh ngọc",
+                "Đen & Trắng"
+            ],
+            "correct": 1
+        }
+    ],
+    "2": [
+        {
+            "id": "q2_1",
+            "question": "Hành vi nào bị nghiêm cấm tuyệt đối?",
+            "options": [
+                "Chia sẻ thông tin nội bộ",
+                "Hỏi mentor",
+                "Làm việc ngoài giờ"
+            ],
+            "correct": 0
+        },
+        {
+            "id": "q2_2",
+            "question": "Khi phát hiện vi phạm, bạn cần làm gì?",
+            "options": [
+                "Im lặng",
+                "Báo cáo ngay xử lý",
+                "Tham gia cùng"
+            ],
+            "correct": 1
+        },
+        {
+            "id": "q2_3",
+            "question": "Mức phạt cao nhất cho vi phạm nghiêm trọng là?",
+            "options": [
+                "Cảnh cáo",
+                "Trừ lương",
+                "Chấm dứt hợp đồng vĩnh viễn"
+            ],
+            "correct": 2
+        },
+        {
+            "id": "q2_4",
+            "question": "Agent có được phép nhận tiền riêng của khách hàng không?",
+            "options": [
+                "Được phép",
+                "Tuyệt đối không",
+                "Tùy trường hợp"
+            ],
+            "correct": 1
+        }
+    ],
+    "3": [
+        {
+            "id": "q3_1",
+            "question": "Tính năng nào giúp định giá nhanh?",
+            "options": [
+                "Tra quy hoạch",
+                "Định giá sơ bộ",
+                "Tin tức"
+            ],
+            "correct": 1
+        },
+        {
+            "id": "q3_2",
+            "question": "Làm sao để cập nhật trạng thái khách hàng?",
+            "options": [
+                "Gọi tổng đài",
+                "Cập nhật trên CRM App",
+                "Gửi Email"
+            ],
+            "correct": 1
+        },
+        {
+            "id": "q3_3",
+            "question": "Khi gặp lỗi App, liên hệ ai?",
+            "options": [
+                "IT Support",
+                "Tự sửa",
+                "Bỏ qua"
+            ],
+            "correct": 0
+        },
+        {
+            "id": "q3_4",
+            "question": "Dữ liệu trên App được cập nhật bao lâu một lần?",
+            "options": [
+                "Real-time (Thời gian thực)",
+                "Mỗi tuần",
+                "Mỗi tháng"
+            ],
+            "correct": 0
+        }
+    ]
+}

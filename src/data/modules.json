@@ -5,29 +5,10 @@
     "description": "Hiểu rõ về văn hoá và giá trị cốt lõi của Citics.",
     "content": {
       "type": "video",
-      "url": "https://www.youtube.com/embed/dQw4w9WgXcQ", 
+      "url": "https://www.youtube.com/embed/dQw4w9WgXcQ",
       "duration": "5:00"
     },
-    "quiz": [
-      {
-        "id": "q1_1",
-        "question": "Citics Agent là gì?",
-        "options": ["Nhân viên sale", "Đối tác kinh doanh", "Cộng tác viên"],
-        "correct": 1
-      },
-      {
-        "id": "q1_2",
-        "question": "Giá trị cốt lõi nào KHÔNG thuộc về Citics?",
-        "options": ["Chính trực", "Sáng tạo", "Làm việc riêng lẻ"],
-        "correct": 2
-      },
-      {
-        "id": "q1_3",
-        "question": "Mục tiêu của Citics năm 2026 là gì?",
-        "options": ["Mở rộng toàn cầu", "Thống lĩnh thị trường nội địa", "Giữ nguyên quy mô"],
-        "correct": 1
-      }
-    ]
+    "quiz": []
   },
   {
     "id": 2,
@@ -36,31 +17,12 @@
     "content": {
       "type": "slide",
       "slides": [
-        "Slide 1: Quy tắc ứng xử",
-        "Slide 2: Các hành vi bị cấm",
-        "Slide 3: Cơ chế thưởng phạt"
+        "https://placehold.co/800x450/0741DA/FFFFFF?text=Slide+1:+Quy+Tac+Ung+Xu",
+        "https://placehold.co/800x450/11DAEF/000000?text=Slide+2:+Cac+Hanh+Vi+Cam",
+        "https://placehold.co/800x450/FFBF01/000000?text=Slide+3:+Co+Che+Thuong+Phat"
       ]
     },
-    "quiz": [
-      {
-        "id": "q2_1",
-        "question": "Hành vi nào bị nghiêm cấm tuyệt đối?",
-        "options": ["Chia sẻ thông tin nội bộ", "Hỏi mentor", "Làm việc ngoài giờ"],
-        "correct": 0
-      },
-      {
-        "id": "q2_2",
-        "question": "Khi phát hiện vi phạm, bạn cần làm gì?",
-        "options": ["Im lặng", "Báo cáo ngay xử lý", "Tham gia cùng"],
-        "correct": 1
-      },
-      {
-        "id": "q2_3",
-        "question": "Mức phạt cao nhất cho vi phạm nghiêm trọng là?",
-        "options": ["Cảnh cáo", "Trừ lương", "Chấm dứt hợp đồng vĩnh viễn"],
-        "correct": 2
-      }
-    ]
+    "quiz": []
   },
   {
     "id": 3,
@@ -71,25 +33,6 @@
       "url": "https://www.youtube.com/embed/dQw4w9WgXcQ",
       "duration": "3:00"
     },
-    "quiz": [
-      {
-        "id": "q3_1",
-        "question": "Tính năng nào giúp định giá nhanh?",
-        "options": ["Tra quy hoạch", "Định giá sơ bộ", "Tin tức"],
-        "correct": 1
-      },
-      {
-        "id": "q3_2",
-        "question": "Làm sao để cập nhật trạng thái khách hàng?",
-        "options": ["Gọi tổng đài", "Cập nhật trên CRM App", "Gửi Email"],
-        "correct": 1
-      },
-      {
-        "id": "q3_3",
-        "question": "Khi gặp lỗi App, liên hệ ai?",
-        "options": ["IT Support", "Tự sửa", "Bỏ qua"],
-        "correct": 0
-      }
-    ]
+    "quiz": []
   }
 ]

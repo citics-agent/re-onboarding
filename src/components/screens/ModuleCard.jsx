@@ -2,6 +2,7 @@ import React from 'react';
 import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { motion } from 'framer-motion';
+import { SlideViewer } from '../ui/SlideViewer';
 
 export const ModuleCard = ({ module, onStartQuiz }) => {
     const { title, description, content } = module;
@@ -14,7 +15,7 @@ export const ModuleCard = ({ module, onStartQuiz }) => {
             transition={{ duration: 0.4 }}
             className="w-full"
         >
-            <Card className="max-w-md w-full mx-auto">
+            <Card className="max-w-5xl w-full mx-auto">
                 <h2 className="text-xl font-bold text-citics-turquoise mb-2">{title}</h2>
                 <p className="text-citics-lavender/80 mb-4 text-sm">{description}</p>
 
@@ -29,10 +30,12 @@ export const ModuleCard = ({ module, onStartQuiz }) => {
                             allowFullScreen
                         ></iframe>
                     ) : (
-                        <div className="text-center p-4">
-                            <p className="text-citics-turquoise text-lg font-semibold">📑 {content.slides.length} Slides</p>
-                            <p className="text-xs text-citics-lavender/50 mt-2">(Placeholder for Slides Viewer)</p>
-                        </div>
+                        /* Check if slides exist before rendering SlideViewer */
+                        content.slides && content.slides.length > 0 ? (
+                            <SlideViewer slides={content.slides} />
+                        ) : (
+                            <div className="text-white/50 text-sm">Chưa có dữ liệu slide</div>
+                        )
                     )}
                 </div>
 

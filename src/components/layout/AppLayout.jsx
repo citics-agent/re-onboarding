@@ -11,11 +11,11 @@ export const AppLayout = ({ children }) => {
 
             <div className="relative z-10 min-h-screen flex flex-col items-center justify-center p-4">
                 <header className="absolute top-0 left-0 w-full p-6 flex justify-between items-center">
-                    <img src="/logo.png" alt="Citics" className="h-8 md:h-10 object-contain" />
+                    <img src={`${import.meta.env.BASE_URL}logo.png`} alt="Citics" className="h-8 md:h-10 object-contain" />
                     <div className="text-xs text-citics-lavender uppercase tracking-widest font-semibold opacity-80">Re-Onboarding</div>
                 </header>
 
-                <main className="w-full max-w-4xl pt-20 pb-12 flex flex-col items-center">
+                <main className="w-full max-w-7xl pt-20 pb-12 flex flex-col items-center px-4">
                     {children}
                 </main>
 

@@ -20,6 +20,19 @@ export const QuizCard = ({ module, onPass, onFail }) => {
         score
     } = useQuiz(module.quiz);
 
+    // SAFETY CHECK: If no questions are available
+    if (!currentQuestion) {
+        return (
+            <Card className="max-w-md w-full mx-auto text-center border-citics-amber/50">
+                <div className="p-6">
+                    <h3 className="text-xl font-bold text-citics-amber mb-2">Không có câu hỏi</h3>
+                    <p className="text-white/60 mb-4">Module này chưa có dữ liệu câu hỏi.</p>
+                    <Button onClick={onPass} variant="outline" className="w-full">Bỏ qua</Button>
+                </div>
+            </Card>
+        );
+    }
+
     if (isSubmitted) {
         return (
             <motion.div
@@ -58,7 +71,7 @@ export const QuizCard = ({ module, onPass, onFail }) => {
                     </p>
 
                     {isPassed ? (
-                        <Button onClick={onPass} className="w-full shadow-lg shadow-citics-turquoise/20">Tiếp tục</Button>
+                        <Button onClick={() => onPass(score)} className="w-full shadow-lg shadow-citics-turquoise/20">Tiếp tục</Button>
                     ) : (
                         <Button onClick={onFail} variant="outline" className="w-full border-citics-amber text-citics-amber hover:bg-citics-amber hover:text-citics-blue">Học lại</Button>
                     )}

@@ -1,0 +1,60 @@
+[
+    {
+        "id": "fullName",
+        "label": "Họ và tên",
+        "type": "text",
+        "placeholder": "Nguyễn Văn A",
+        "required": true,
+        "errorMessage": "Vui lòng nhập họ tên"
+    },
+    {
+        "id": "email",
+        "label": "Email",
+        "type": "email",
+        "placeholder": "example@email.com",
+        "required": true,
+        "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+        "errorMessage": "Vui lòng nhập đúng Email"
+    },
+    {
+        "id": "phone",
+        "label": "Số điện thoại",
+        "type": "tel",
+        "placeholder": "0909xxxxxx",
+        "required": true,
+        "pattern": "^(0[3|5|7|8|9])+([0-9]{8})$",
+        "errorMessage": "Số điện thoại không hợp lệ"
+    },
+    {
+        "id": "area",
+        "label": "Khu vực hoạt động chính (Chọn 2)",
+        "type": "multiselect",
+        "options": [
+            "Quận 1",
+            "Quận 3",
+            "Quận 4",
+            "Quận 5",
+            "Quận 6",
+            "Quận 7",
+            "Quận 8",
+            "Quận 10",
+            "Quận 11",
+            "Quận 12",
+            "Q. Tân Bình",
+            "Q. Bình Tân",
+            "Q. Bình Thạnh",
+            "Q. Tân Phú",
+            "Q. Gò Vấp",
+            "Q. Phú Nhuận",
+            "TP. Thủ Đức",
+            "H. Bình Chánh",
+            "H. Hóc Môn",
+            "H. Cần Giờ",
+            "H. Củ Chi",
+            "H. Nhà Bè"
+        ],
+        "maxSelect": 2,
+        "required": true,
+        "errorMessage": "Vui lòng chọn đúng 2 khu vực"
+    }
+]
