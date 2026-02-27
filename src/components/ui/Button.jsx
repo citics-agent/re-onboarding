@@ -9,10 +9,10 @@ export const Button = React.forwardRef(({
     ...props
 }, ref) => {
     const variants = {
-        primary: 'bg-citics-turquoise text-citics-blue hover:bg-white hover:text-citics-blue font-bold shadow-lg shadow-citics-turquoise/20',
-        secondary: 'bg-citics-lavender text-citics-blue hover:bg-white font-medium',
-        outline: 'border-2 border-citics-turquoise text-citics-turquoise hover:bg-citics-turquoise hover:text-citics-blue',
-        ghost: 'text-citics-lavender hover:bg-citics-blue/50 hover:text-white',
+        primary: 'bg-citics-blue text-white hover:bg-citics-blue/90 font-bold shadow-lg shadow-citics-blue/20',
+        secondary: 'bg-slate-100 border border-slate-200 text-slate-700 hover:bg-slate-200 font-medium',
+        outline: 'border-2 border-citics-blue text-citics-blue hover:bg-citics-blue/5 font-bold',
+        ghost: 'text-slate-600 hover:bg-slate-100 hover:text-slate-900',
     };
 
     const sizes = {
@@ -25,7 +25,7 @@ export const Button = React.forwardRef(({
         <button
             ref={ref}
             className={twMerge(
-                'rounded-full transition-all duration-300 active:scale-95 disabled:opacity-50 disabled:pointer-events-none flex items-center justify-center gap-2',
+                'rounded-xl transition-all duration-300 active:scale-95 disabled:opacity-50 disabled:pointer-events-none flex items-center justify-center gap-2',
                 variants[variant],
                 sizes[size],
                 className

@@ -18,25 +18,43 @@
     },
     {
         "id": "phone",
-        "label": "Số điện thoại",
+        "label": "SĐT đăng nhập Citics Agent",
         "type": "tel",
-        "placeholder": "0909xxxxxx",
+        "placeholder": "Nhập số điện thoại",
         "required": true,
         "pattern": "^(0[3|5|7|8|9])+([0-9]{8})$",
         "errorMessage": "Số điện thoại không hợp lệ"
     },
     {
+        "id": "occupation",
+        "label": "Nghề nghiệp hiện tại",
+        "type": "select",
+        "required": true,
+        "options": [
+            "Môi giới sơ cấp",
+            "Môi giới thứ cấp",
+            "Tín dụng ngân hàng",
+            "Thẩm định giá BĐS",
+            "Đầu tư",
+            "Khác"
+        ],
+        "errorMessage": "Vui lòng chọn nghề nghiệp"
+    },
+    {
         "id": "area",
-        "label": "Khu vực hoạt động chính (Chọn 2)",
+        "label": "Khu vực hoạt động chính",
+        "description": "(Theo địa lý hành chính trước 01/07/2025)",
         "type": "multiselect",
         "options": [
             "Quận 1",
+            "Quận 2",
             "Quận 3",
             "Quận 4",
             "Quận 5",
             "Quận 6",
             "Quận 7",
             "Quận 8",
+            "Quận 9",
             "Quận 10",
             "Quận 11",
             "Quận 12",
@@ -53,8 +71,15 @@
             "H. Củ Chi",
             "H. Nhà Bè"
         ],
-        "maxSelect": 2,
+        "maxSelect": 1,
         "required": true,
-        "errorMessage": "Vui lòng chọn đúng 2 khu vực"
+        "errorMessage": "Vui lòng chọn 1 khu vực hoạt động chính"
+    },
+    {
+        "id": "officeCode",
+        "label": "Mã sàn",
+        "type": "text",
+        "placeholder": "Ví dụ: SGN-01",
+        "required": false
     }
 ]

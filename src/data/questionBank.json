@@ -67,7 +67,7 @@
             "question": "Khi phát hiện vi phạm, bạn cần làm gì?",
             "options": [
                 "Im lặng",
-                "Báo cáo ngay xử lý",
+                "Báo cáo ngay để xử lý",
                 "Tham gia cùng"
             ],
             "correct": 1
@@ -91,48 +91,16 @@
                 "Tùy trường hợp"
             ],
             "correct": 1
-        }
-    ],
-    "3": [
+        },
         {
-            "id": "q3_1",
-            "question": "Tính năng nào giúp định giá nhanh?",
+            "id": "q2_5",
+            "question": "Khi có tranh chấp với khách hàng, Agent nên làm gì đầu tiên?",
             "options": [
-                "Tra quy hoạch",
-                "Định giá sơ bộ",
-                "Tin tức"
+                "Tự giải quyết riêng",
+                "Báo cáo ngay cho STL/Quản lý",
+                "Nhờ đồng nghiệp can thiệp"
             ],
             "correct": 1
-        },
-        {
-            "id": "q3_2",
-            "question": "Làm sao để cập nhật trạng thái khách hàng?",
-            "options": [
-                "Gọi tổng đài",
-                "Cập nhật trên CRM App",
-                "Gửi Email"
-            ],
-            "correct": 1
-        },
-        {
-            "id": "q3_3",
-            "question": "Khi gặp lỗi App, liên hệ ai?",
-            "options": [
-                "IT Support",
-                "Tự sửa",
-                "Bỏ qua"
-            ],
-            "correct": 0
-        },
-        {
-            "id": "q3_4",
-            "question": "Dữ liệu trên App được cập nhật bao lâu một lần?",
-            "options": [
-                "Real-time (Thời gian thực)",
-                "Mỗi tuần",
-                "Mỗi tháng"
-            ],
-            "correct": 0
         }
     ]
 }

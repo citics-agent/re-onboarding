@@ -41,13 +41,13 @@ export const InputInfoScreen = ({ onNext }) => {
     const handleChange = (id, value) => {
         setFormData(prev => ({ ...prev, [id]: value }));
         if (errors[id]) {
-            setErrors(prev => {
-                const newErrs = { ...prev };
-                delete newErrs[id];
-                return newErrs;
-            });
+            setErrors(prev => { const n = { ...prev }; delete n[id]; return n; });
         }
     };
+
+    const inputClass = (id, isSelect = false) => `w-full bg-slate-50 border rounded-xl px-3.5 py-2.5 text-sm ${isSelect && !formData[id] ? 'text-slate-400' : 'text-slate-900'} placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-offset-0 transition-all ${errors[id]
+        ? 'border-red-300 focus:border-red-500 focus:ring-red-200 bg-red-50/50'
+        : 'border-slate-200 focus:border-citics-blue focus:ring-citics-blue/20 hover:border-slate-300'}`;
 
     return (
         <motion.div
@@ -57,64 +57,95 @@ export const InputInfoScreen = ({ onNext }) => {
             transition={{ duration: 0.4 }}
             className="w-full"
         >
-            <Card className="max-w-md w-full mx-auto p-6 md:p-8">
-                <h2 className="text-2xl font-bold text-center text-white mb-6">Thông tin xác thực</h2>
+            <Card className="max-w-md w-full mx-auto p-5 md:p-6 lg:p-7">
+                <h2 className="text-xl font-bold text-center text-slate-900 mb-5">Thông tin Agent</h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     {formFields.map((field) => (
-                        <div key={field.id}>
-                            <label className="block text-sm font-medium text-citics-lavender/70 mb-1">
-                                {field.label} {field.required && <span className="text-red-400">*</span>}
+                        <div key={field.id} className="relative">
+                            <label className="block text-[11px] font-bold text-slate-700 mb-1 uppercase tracking-wide">
+                                {field.label}
+                                {field.required && <span className="text-red-500 ml-1">*</span>}
                             </label>
+
+                            {(field.description || !field.required) && (
+                                <p className="text-[10px] text-slate-400 mb-2 italic -mt-0.5">
+                                    {field.description}
+                                    {!field.required && !field.description ? '(Tuỳ chọn)' : ''}
+                                    {!field.required && field.description ? ' (Tuỳ chọn)' : ''}
+                                </p>
+                            )}
+
+                            {/* Multiselect */}
                             {field.type === 'multiselect' ? (
-                                <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-                                    {field.options.map((option) => {
-                                        const isSelected = (formData[field.id] || []).includes(option);
-                                        return (
-                                            <button
-                                                key={option}
-                                                type="button"
-                                                onClick={() => {
-                                                    const currentSelected = formData[field.id] || [];
-                                                    let newSelected;
-                                                    if (isSelected) {
-                                                        newSelected = currentSelected.filter(item => item !== option);
-                                                    } else {
-                                                        if (currentSelected.length >= field.maxSelect) return; // Prevent selecting more than max
-                                                        newSelected = [...currentSelected, option];
-                                                    }
-                                                    handleChange(field.id, newSelected);
-                                                }}
-                                                className={`px-3 py-2 text-xs md:text-sm rounded-lg border transition-all ${isSelected
-                                                    ? 'bg-citics-turquoise text-citics-blue border-citics-turquoise font-bold'
-                                                    : 'bg-white/5 border-white/20 text-white/70 hover:bg-white/10'
-                                                    }`}
-                                            >
-                                                {option}
-                                            </button>
-                                        );
-                                    })}
+                                <div className="max-h-40 overflow-y-auto pr-1 rounded-xl custom-scrollbar border border-slate-100 p-2 bg-slate-50/50">
+                                    <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                                        {field.options.map((option) => {
+                                            const isSelected = (formData[field.id] || []).includes(option);
+                                            return (
+                                                <button
+                                                    key={option}
+                                                    type="button"
+                                                    onClick={() => {
+                                                        const current = formData[field.id] || [];
+                                                        let next;
+                                                        if (isSelected) {
+                                                            next = current.filter(i => i !== option);
+                                                        } else {
+                                                            if (current.length >= field.maxSelect) return;
+                                                            next = [...current, option];
+                                                        }
+                                                        handleChange(field.id, next);
+                                                    }}
+                                                    className={`px-2 py-2 text-sm rounded-lg border transition-all ${isSelected
+                                                        ? 'bg-citics-blue/10 text-citics-blue border-citics-blue font-bold shadow-sm'
+                                                        : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50 hover:border-slate-300'
+                                                        }`}
+                                                >
+                                                    {option}
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            ) : field.type === 'select' ? (
+                                /* Dropdown Select */
+                                <div className="relative">
+                                    <select
+                                        value={formData[field.id] || ''}
+                                        onChange={(e) => handleChange(field.id, e.target.value)}
+                                        className={`${inputClass(field.id, true)} appearance-none cursor-pointer pr-10`}
+                                    >
+                                        <option value="" disabled>Chọn nghề nghiệp</option>
+                                        {field.options.map((option) => (
+                                            <option key={option} value={option} className="text-slate-900">{option}</option>
+                                        ))}
+                                    </select>
+                                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-400">
+                                        <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+                                    </div>
                                 </div>
                             ) : (
+                                /* Text / Tel / Email */
                                 <input
                                     type={field.type}
                                     placeholder={field.placeholder}
                                     value={formData[field.id] || ''}
                                     onChange={(e) => handleChange(field.id, e.target.value)}
-                                    className={`w-full bg-citics-blue/50 border rounded-xl px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:ring-1 transition-all
-                                    ${errors[field.id]
-                                            ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-                                            : 'border-white/20 focus:border-citics-turquoise focus:ring-citics-turquoise'}`}
+                                    className={inputClass(field.id)}
                                 />
                             )}
+
                             {errors[field.id] && (
-                                <p className="text-xs text-red-400 mt-1 ml-1">{errors[field.id]}</p>
+                                <p className="text-[11px] font-medium text-red-500 mt-1.5 ml-1 absolute -bottom-5 left-0">{errors[field.id]}</p>
                             )}
                         </div>
                     ))}
 
-                    <Button type="submit" className="w-full mt-6 shadow-lg shadow-citics-turquoise/20">
-                        Tiếp tục
-                    </Button>
+                    <div className="pt-2">
+                        <Button type="submit" className="w-full">
+                            Tiếp tục
+                        </Button>
+                    </div>
                 </form>
             </Card>
         </motion.div>
