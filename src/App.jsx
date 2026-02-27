@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { AppLayout } from './components/layout/AppLayout.jsx';
 import { WelcomeScreen } from './components/screens/WelcomeScreen';
 import { InputInfoScreen } from './components/screens/InputInfoScreen';
@@ -32,38 +32,55 @@ function App() {
   const [userData, setUserData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [activeModules, setActiveModules] = useState([]);
-  const [isAppLoading, setIsAppLoading] = useState(true);
   const [moduleScores, setModuleScores] = useState({});
+  // Holds remote question bank fetched silently in the background
+  const remoteBankRef = useRef(null);
 
   useEffect(() => {
-    const initApp = async () => {
+    // Step 1: Immediately initialize with local fallback — no blocking
+    const localModules = modulesData.map(module => {
+      const questions = QuestionBank[module.id] || QuestionBank[String(module.id)] || [];
+      if (questions.length === 0) {
+        console.warn(`No local questions found for Module ${module.id}`);
+      }
+      return {
+        ...module,
+        quiz: getRandomQuestions(questions, QUESTIONS_PER_MODULE)
+      };
+    });
+    setActiveModules(localModules);
+
+    // Step 2: Fetch remote questions in the background (fire-and-forget)
+    const prefetchQuestions = async () => {
       const remoteBank = await fetchQuestions();
-      const sourceBank = (remoteBank && Object.keys(remoteBank).length > 0)
-        ? remoteBank
-        : QuestionBank;
-
-      const initialized = modulesData.map(module => {
-        const questions = sourceBank[module.id] || sourceBank[String(module.id)] || [];
-        if (questions.length === 0) {
-          console.warn(`No questions found for Module ${module.id}`);
-        }
-        return {
-          ...module,
-          quiz: getRandomQuestions(questions, QUESTIONS_PER_MODULE)
-        };
-      });
-
-      setActiveModules(initialized);
-      setIsAppLoading(false);
+      if (remoteBank && Object.keys(remoteBank).length > 0) {
+        remoteBankRef.current = remoteBank;
+        console.log('[App] Remote question bank ready.');
+      }
     };
-
-    initApp();
+    prefetchQuestions();
   }, []);
+
+  // Upgrades activeModules to remote questions if the fetch has completed.
+  // Called right before the first Quiz step to guarantee the latest question set.
+  const upgradeToRemoteQuestions = () => {
+    if (!remoteBankRef.current) return; // Remote not ready yet — keep local fallback
+    const upgraded = modulesData.map(module => {
+      const questions = remoteBankRef.current[module.id] || remoteBankRef.current[String(module.id)] || [];
+      return {
+        ...module,
+        quiz: getRandomQuestions(questions, QUESTIONS_PER_MODULE)
+      };
+    });
+    setActiveModules(upgraded);
+  };
 
   const handleStart = () => setStep(1);
 
   const handleInfoSubmit = (data) => {
     setUserData(prev => ({ ...prev, ...data }));
+    // Upgrade to remote questions right before modules begin (if fetch has completed)
+    upgradeToRemoteQuestions();
     setStep(2);
   };
 
@@ -137,14 +154,6 @@ function App() {
   const globalProgress = step >= 1 && step <= 6 ? Math.round((step / 6) * 100) : 0;
 
   const renderContent = () => {
-    if (isAppLoading) {
-      return (
-        <div className="flex flex-col items-center justify-center min-h-[60vh] text-slate-700">
-          <Loader2 className="w-12 h-12 text-citics-blue animate-spin mb-4" />
-          <p className="animate-pulse font-medium">Đang tải dữ liệu...</p>
-        </div>
-      );
-    }
 
     if (isLoading) {
       return (
