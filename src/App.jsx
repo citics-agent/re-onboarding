@@ -14,7 +14,7 @@ import QuestionBank from './data/questionBank.json';
 import { getRandomQuestions } from './utils/quizHelpers';
 
 // CẤU HÌNH: Số lượng câu hỏi muốn hiển thị mỗi Module
-const QUESTIONS_PER_MODULE = 5;
+const QUESTIONS_PER_MODULE = 3;
 
 // Steps Mapping (2 Modules):
 // 0: Welcome
@@ -76,6 +76,10 @@ function App() {
   };
 
   const handleStart = () => setStep(1);
+
+  const handleBack = () => {
+    setStep(prev => Math.max(0, prev - 1));
+  };
 
   const handleInfoSubmit = (data) => {
     setUserData(prev => ({ ...prev, ...data }));
@@ -166,12 +170,12 @@ function App() {
 
     switch (step) {
       case 0: return <WelcomeScreen onStart={handleStart} />;
-      case 1: return <InputInfoScreen onNext={handleInfoSubmit} />;
-      case 2: return <ModuleCard module={activeModules[0]} onStartQuiz={handleModuleComplete} />;
-      case 3: return <QuizCard module={activeModules[0]} onPass={handleQuizPass} onFail={() => handleQuizFail()} />;
-      case 4: return <ModuleCard module={activeModules[1]} onStartQuiz={handleModuleComplete} />;
-      case 5: return <QuizCard module={activeModules[1]} onPass={handleQuizPass} onFail={() => handleQuizFail()} />;
-      case 6: return <RoleSelection onSelect={handleRoleSelect} />;
+      case 1: return <InputInfoScreen onNext={handleInfoSubmit} onBack={handleBack} />;
+      case 2: return <ModuleCard module={activeModules[0]} onStartQuiz={handleModuleComplete} onBack={handleBack} />;
+      case 3: return <QuizCard module={activeModules[0]} onPass={handleQuizPass} onFail={() => handleQuizFail()} onBack={handleBack} />;
+      case 4: return <ModuleCard module={activeModules[1]} onStartQuiz={handleModuleComplete} onBack={handleBack} />;
+      case 5: return <QuizCard module={activeModules[1]} onPass={handleQuizPass} onFail={() => handleQuizFail()} onBack={handleBack} />;
+      case 6: return <RoleSelection onSelect={handleRoleSelect} onBack={handleBack} />;
       case 7: return <SuccessScreen onFinish={handleFinish} />;
       default: return <div>Unknown Step</div>;
     }

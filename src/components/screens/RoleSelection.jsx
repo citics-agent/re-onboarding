@@ -24,7 +24,7 @@ const roles = [
     }
 ];
 
-export const RoleSelection = ({ onSelect }) => {
+export const RoleSelection = ({ onSelect, onBack }) => {
     return (
         <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -62,6 +62,12 @@ export const RoleSelection = ({ onSelect }) => {
                         </motion.div>
                     );
                 })}
+            </div>
+
+            <div className="mt-8">
+                <Button type="button" variant="outline" onClick={onBack} className="w-full max-w-xs mx-auto text-slate-600 border-slate-300 hover:bg-slate-50">
+                    Quay lại
+                </Button>
             </div>
         </motion.div>
     );

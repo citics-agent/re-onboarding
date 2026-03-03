@@ -7,7 +7,7 @@ import { CheckCircle, XCircle } from 'lucide-react';
 import { clsx } from 'clsx';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export const QuizCard = ({ module, onPass, onFail }) => {
+export const QuizCard = ({ module, onPass, onFail, onBack }) => {
     const {
         currentQuestion,
         currentQuestionIndex,
@@ -198,13 +198,18 @@ export const QuizCard = ({ module, onPass, onFail }) => {
                     ))}
                 </div>
 
-                <Button
-                    onClick={nextQuestion}
-                    disabled={answers[currentQuestion.id] === undefined}
-                    className="w-full"
-                >
-                    {currentQuestionIndex === totalQuestions - 1 ? 'Hoàn thành' : 'Tiếp theo'}
-                </Button>
+                <div className="flex gap-3">
+                    <Button type="button" variant="outline" onClick={onBack} className="w-1/3 text-slate-600 border-slate-200 hover:bg-slate-50 px-2 text-sm md:text-base">
+                        Học lại
+                    </Button>
+                    <Button
+                        onClick={nextQuestion}
+                        disabled={answers[currentQuestion.id] === undefined}
+                        className="w-2/3 px-2 text-sm md:text-base"
+                    >
+                        {currentQuestionIndex === totalQuestions - 1 ? 'Hoàn thành' : 'Tiếp theo'}
+                    </Button>
+                </div>
             </Card>
         </motion.div>
     );

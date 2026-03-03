@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { SlideViewer } from '../ui/SlideViewer';
 import { HelpCircle, Star } from 'lucide-react';
 
-export const ModuleCard = ({ module, onStartQuiz }) => {
+export const ModuleCard = ({ module, onStartQuiz, onBack }) => {
     const { id, title, description, content, quiz } = module;
     const moduleNum = String(id).padStart(2, '0');
     const questionCount = quiz?.length || 0;
@@ -73,13 +73,18 @@ export const ModuleCard = ({ module, onStartQuiz }) => {
                 </div>
 
                 {/* CTA */}
-                <Button
-                    onClick={onStartQuiz}
-                    className="w-full shadow-lg shadow-citics-turquoise/20 font-semibold group"
-                >
-                    Bắt đầu bài kiểm tra
-                    <span className="ml-2 group-hover:translate-x-1 inline-block transition-transform">→</span>
-                </Button>
+                <div className="flex gap-3">
+                    <Button type="button" variant="outline" onClick={onBack} className="w-1/3 text-slate-600 border-slate-200 hover:bg-slate-50 px-2 text-sm md:text-base">
+                        Quay lại
+                    </Button>
+                    <Button
+                        onClick={onStartQuiz}
+                        className="w-2/3 shadow-lg shadow-citics-turquoise/20 font-semibold group px-2 text-sm md:text-base"
+                    >
+                        Bắt đầu
+                        <span className="ml-2 group-hover:translate-x-1 inline-block transition-transform">→</span>
+                    </Button>
+                </div>
             </Card>
         </motion.div>
     );

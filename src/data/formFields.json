@@ -41,10 +41,42 @@
         "errorMessage": "Vui lòng chọn nghề nghiệp"
     },
     {
+        "id": "provinceCity",
+        "label": "Tỉnh/Thành phố",
+        "description": "(Theo địa lý hành chính trước 01/07/2025)",
+        "type": "select",
+        "required": true,
+        "options": [
+            "Hồ Chí Minh",
+            "Hà Nội",
+            "Khác"
+        ],
+        "errorMessage": "Vui lòng chọn Tỉnh/Thành phố"
+    },
+    {
+        "id": "otherProvince",
+        "label": "Nhập Tỉnh/Thành phố cụ thể",
+        "type": "text",
+        "placeholder": "Ví dụ: Đà Nẵng",
+        "required": true,
+        "dependsOn": {
+            "field": "provinceCity",
+            "value": [
+                "Khác"
+            ]
+        },
+        "errorMessage": "Vui lòng nhập Tỉnh/Thành phố"
+    },
+    {
         "id": "area",
         "label": "Khu vực hoạt động chính",
-        "description": "(Theo địa lý hành chính trước 01/07/2025)",
         "type": "multiselect",
+        "dependsOn": {
+            "field": "provinceCity",
+            "value": [
+                "Hồ Chí Minh"
+            ]
+        },
         "options": [
             "Quận 1",
             "Quận 2",
@@ -74,6 +106,21 @@
         "maxSelect": 1,
         "required": true,
         "errorMessage": "Vui lòng chọn 1 khu vực hoạt động chính"
+    },
+    {
+        "id": "ward",
+        "label": "Phường/Xã",
+        "type": "text",
+        "placeholder": "Ví dụ: Phường 14, Quận 10",
+        "required": true,
+        "dependsOn": {
+            "field": "provinceCity",
+            "value": [
+                "Hà Nội",
+                "Khác"
+            ]
+        },
+        "errorMessage": "Vui lòng nhập đầy đủ Phường/Xã"
     },
     {
         "id": "officeCode",
