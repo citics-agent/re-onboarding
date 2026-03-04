@@ -7,13 +7,19 @@ export const submitData = async (data) => {
             return { success: true, message: 'Data logged in console (Dev mode)' };
         }
 
+        // Clone data to format phone number
+        const payload = { ...data };
+        if (payload.phone && payload.phone.startsWith('0')) {
+            payload.phone = '+84' + payload.phone.slice(1);
+        }
+
         const response = await fetch(GOOGLE_SCRIPT_URL, {
             method: 'POST',
             mode: 'no-cors',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(data),
+            body: JSON.stringify(payload),
         });
 
         return { success: true, message: 'Submission sent' };

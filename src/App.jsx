@@ -33,6 +33,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [activeModules, setActiveModules] = useState([]);
   const [moduleScores, setModuleScores] = useState({});
+  const [startTime, setStartTime] = useState(null);
   // Holds remote question bank fetched silently in the background
   const remoteBankRef = useRef(null);
 
@@ -85,6 +86,7 @@ function App() {
     setUserData(prev => ({ ...prev, ...data }));
     // Upgrade to remote questions right before modules begin (if fetch has completed)
     upgradeToRemoteQuestions();
+    setStartTime(Date.now());
     setStep(2);
   };
 
@@ -105,11 +107,16 @@ function App() {
       setIsLoading(true);
       const totalScore = Object.values(updatedScores).reduce((a, b) => a + b, 0);
       const totalQuestions = activeModules.reduce((acc, module) => acc + module.quiz.length, 0);
+
+      const durationSeconds = startTime ? Math.floor((Date.now() - startTime) / 1000) : 0;
+      const formattedDuration = `${String(Math.floor(durationSeconds / 60)).padStart(2, '0')}:${String(durationSeconds % 60).padStart(2, '0')}`;
+
       const finalData = {
         ...userData,
         ...updatedScores,
         total_score: totalScore,
         timestamp: new Date().toISOString(),
+        duration: formattedDuration,
         status: `Passed (${totalScore}/${totalQuestions})`
       };
       await submitData(finalData);
@@ -129,12 +136,16 @@ function App() {
     const totalScore = Object.values(moduleScores).reduce((a, b) => a + b, 0);
     const totalQuestions = activeModules.reduce((acc, module) => acc + module.quiz.length, 0);
 
+    const durationSeconds = startTime ? Math.floor((Date.now() - startTime) / 1000) : 0;
+    const formattedDuration = `${String(Math.floor(durationSeconds / 60)).padStart(2, '0')}:${String(durationSeconds % 60).padStart(2, '0')}`;
+
     const finalData = {
       ...userData,
       ...moduleScores,
       total_score: totalScore,
       role,
       timestamp: new Date().toISOString(),
+      duration: formattedDuration,
       status: `Passed (${totalScore}/${totalQuestions})`
     };
 

@@ -48,7 +48,7 @@ export const SuccessScreen = ({ onFinish }) => {
                 transition={{ delay: 0.6 }}
                 className="text-base text-slate-500 mb-10 max-w-sm leading-relaxed"
             >
-                Tiếp theo, bạn sẽ được điều hướng về <span className="text-citics-blue font-bold">App Citics Agent</span> để kích hoạt dịch vụ. Nếu đã xoá app, vui lòng tải lại trước.
+                Tiếp theo, bạn sẽ được điều hướng về <span className="text-citics-blue font-bold">App Citics Agent</span> để kích hoạt dịch vụ.
             </motion.p>
 
             <motion.div

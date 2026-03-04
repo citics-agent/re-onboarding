@@ -35,8 +35,8 @@
             "Môi giới thứ cấp",
             "Tín dụng ngân hàng",
             "Thẩm định giá BĐS",
-            "Đầu tư",
-            "Khác"
+            "Đầu tư / Kinh doanh tự do",
+            "Sinh viên"
         ],
         "errorMessage": "Vui lòng chọn nghề nghiệp"
     },
@@ -108,19 +108,18 @@
         "errorMessage": "Vui lòng chọn 1 khu vực hoạt động chính"
     },
     {
-        "id": "ward",
-        "label": "Phường/Xã",
+        "id": "area",
+        "label": "Quận/Huyện, Phường/Xã",
         "type": "text",
         "placeholder": "Ví dụ: Phường 14, Quận 10",
         "required": true,
         "dependsOn": {
             "field": "provinceCity",
             "value": [
-                "Hà Nội",
-                "Khác"
+                "Hà Nội"
             ]
         },
-        "errorMessage": "Vui lòng nhập đầy đủ Phường/Xã"
+        "errorMessage": "Vui lòng nhập đầy đủ Quận/Huyện, Phường/Xã"
     },
     {
         "id": "officeCode",

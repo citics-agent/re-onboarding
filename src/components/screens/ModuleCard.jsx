@@ -44,7 +44,7 @@ export const ModuleCard = ({ module, onStartQuiz, onBack }) => {
                     </span>
                     <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-600">
                         <Star className="w-3 h-3 text-amber-500" />
-                        Yêu cầu 4/{questionCount} để qua
+                        Yêu cầu {questionCount}/{questionCount} để qua
                     </span>
                 </div>
 
