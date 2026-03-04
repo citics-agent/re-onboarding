@@ -121,13 +121,13 @@
                 "Hà Nội"
             ]
         },
-        "errorMessage": "Vui lòng nhập đầy đủ Quận/Huyện, Phường/Xã"
+        "errorMessage": "Vui lòng nhập đầy đủ Quận/Huyện"
     },
     {
         "id": "officeCode",
         "label": "Mã sàn",
         "type": "text",
-        "placeholder": "Ví dụ: SGN-01",
+        "placeholder": "Ví dụ: HCM-01",
         "required": false
     }
 ]

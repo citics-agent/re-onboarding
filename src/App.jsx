@@ -115,7 +115,7 @@ function App() {
         ...userData,
         ...updatedScores,
         total_score: totalScore,
-        timestamp: new Date().toISOString(),
+        timestamp: new Date(Date.now() + 7 * 3600 * 1000).toISOString().replace('Z', '+07:00'),
         duration: formattedDuration,
         status: `Passed (${totalScore}/${totalQuestions})`
       };
@@ -144,7 +144,7 @@ function App() {
       ...moduleScores,
       total_score: totalScore,
       role,
-      timestamp: new Date().toISOString(),
+      timestamp: new Date(Date.now() + 7 * 3600 * 1000).toISOString().replace('Z', '+07:00'),
       duration: formattedDuration,
       status: `Passed (${totalScore}/${totalQuestions})`
     };
