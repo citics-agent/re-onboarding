@@ -111,11 +111,14 @@ function App() {
       const durationSeconds = startTime ? Math.floor((Date.now() - startTime) / 1000) : 0;
       const formattedDuration = `${String(Math.floor(durationSeconds / 60)).padStart(2, '0')}:${String(durationSeconds % 60).padStart(2, '0')}`;
 
+      const gmt7Date = new Date(Date.now() + 7 * 3600 * 1000);
+      const formattedTimestamp = gmt7Date.toISOString().replace('T', ' ').substring(0, 19);
+
       const finalData = {
         ...userData,
         ...updatedScores,
         total_score: totalScore,
-        timestamp: new Date(Date.now() + 7 * 3600 * 1000).toISOString().replace('Z', '+07:00'),
+        timestamp: formattedTimestamp,
         duration: formattedDuration,
         status: `Passed (${totalScore}/${totalQuestions})`
       };
@@ -139,12 +142,15 @@ function App() {
     const durationSeconds = startTime ? Math.floor((Date.now() - startTime) / 1000) : 0;
     const formattedDuration = `${String(Math.floor(durationSeconds / 60)).padStart(2, '0')}:${String(durationSeconds % 60).padStart(2, '0')}`;
 
+    const gmt7Date = new Date(Date.now() + 7 * 3600 * 1000);
+    const formattedTimestamp = gmt7Date.toISOString().replace('T', ' ').substring(0, 19);
+
     const finalData = {
       ...userData,
       ...moduleScores,
       total_score: totalScore,
       role,
-      timestamp: new Date(Date.now() + 7 * 3600 * 1000).toISOString().replace('Z', '+07:00'),
+      timestamp: formattedTimestamp,
       duration: formattedDuration,
       status: `Passed (${totalScore}/${totalQuestions})`
     };
