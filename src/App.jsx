@@ -131,8 +131,26 @@ function App() {
   };
 
   const handleQuizFail = () => {
+    // Reshuffle questions for the current module so the next attempt is fresh
+    const moduleIndex = Math.floor((step - 2) / 2);
+    const module = modulesData[moduleIndex];
+
+    // Determine which bank to use (remote if ready, else local)
+    const bank = remoteBankRef.current || QuestionBank;
+    const questions = bank[module.id] || bank[String(module.id)] || [];
+
+    if (questions.length > 0) {
+      const updatedModules = [...activeModules];
+      updatedModules[moduleIndex] = {
+        ...updatedModules[moduleIndex],
+        quiz: getRandomQuestions(questions, QUESTIONS_PER_MODULE)
+      };
+      setActiveModules(updatedModules);
+    }
+
     setStep(prev => prev - 1); // Go back to re-read the module
   };
+
 
   const handleRoleSelect = async (role) => {
     setIsLoading(true);
