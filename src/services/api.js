@@ -10,7 +10,7 @@ export const submitData = async (data) => {
         // Clone data to format phone number
         const payload = { ...data };
         if (payload.phone && payload.phone.startsWith('0')) {
-            payload.phone = '+84' + payload.phone.slice(1);
+            payload.phone = `'${payload.phone}`;
         }
 
         const response = await fetch(GOOGLE_SCRIPT_URL, {

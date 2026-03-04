@@ -51,9 +51,11 @@ export const InputInfoScreen = ({ onNext, onBack }) => {
         if (validate()) {
             // Clean up invisible fields before submitting
             const cleanedData = { ...formData };
-            formFields.forEach(field => {
-                if (!isFieldVisible(field)) {
-                    delete cleanedData[field.id];
+            const visibleFieldIds = new Set(formFields.filter(isFieldVisible).map(f => f.id));
+
+            Object.keys(cleanedData).forEach(key => {
+                if (!visibleFieldIds.has(key)) {
+                    delete cleanedData[key];
                 }
             });
             onNext(cleanedData);
@@ -121,11 +123,16 @@ export const InputInfoScreen = ({ onNext, onBack }) => {
                                                     onClick={() => {
                                                         const current = formData[field.id] || [];
                                                         let next;
-                                                        if (isSelected) {
-                                                            next = current.filter(i => i !== option);
+
+                                                        if (field.maxSelect === 1) {
+                                                            next = [option]; // Single select: always override, no un-ticking needed
                                                         } else {
-                                                            if (current.length >= field.maxSelect) return;
-                                                            next = [...current, option];
+                                                            if (isSelected) {
+                                                                next = current.filter(i => i !== option);
+                                                            } else {
+                                                                if (current.length >= field.maxSelect) return;
+                                                                next = [...current, option];
+                                                            }
                                                         }
                                                         handleChange(field.id, next);
                                                     }}
@@ -148,7 +155,7 @@ export const InputInfoScreen = ({ onNext, onBack }) => {
                                         onChange={(e) => handleChange(field.id, e.target.value)}
                                         className={`${inputClass(field.id, true)} appearance-none cursor-pointer pr-10`}
                                     >
-                                        <option value="" disabled>Chọn nghề nghiệp</option>
+                                        <option value="" disabled>{field.placeholder || `Chọn ${field.label}`}</option>
                                         {field.options.map((option) => (
                                             <option key={option} value={option} className="text-slate-900">{option}</option>
                                         ))}

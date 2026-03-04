@@ -29,6 +29,7 @@
         "id": "occupation",
         "label": "Nghề nghiệp hiện tại",
         "type": "select",
+        "placeholder": "Chọn nghề nghiệp",
         "required": true,
         "options": [
             "Môi giới sơ cấp",
@@ -45,6 +46,7 @@
         "label": "Tỉnh/Thành phố",
         "description": "(Theo địa lý hành chính trước 01/07/2025)",
         "type": "select",
+        "placeholder": "Chọn Tỉnh/Thành phố",
         "required": true,
         "options": [
             "Hồ Chí Minh",
@@ -109,9 +111,9 @@
     },
     {
         "id": "area",
-        "label": "Quận/Huyện, Phường/Xã",
+        "label": "Quận/Huyện",
         "type": "text",
-        "placeholder": "Ví dụ: Phường 14, Quận 10",
+        "placeholder": "Ví dụ: Quận Thanh Xuân, Quận Hà Đông",
         "required": true,
         "dependsOn": {
             "field": "provinceCity",

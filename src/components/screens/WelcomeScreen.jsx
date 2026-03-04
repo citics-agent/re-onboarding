@@ -5,7 +5,7 @@ import { BookOpen, HelpCircle, Clock } from 'lucide-react';
 
 const stats = [
     { icon: BookOpen, label: '2 Phần' },
-    { icon: HelpCircle, label: '10 Câu hỏi' },
+    { icon: HelpCircle, label: '6 Câu hỏi' },
     { icon: Clock, label: '~5 phút' },
 ];
 
