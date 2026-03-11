@@ -1,26 +1,11 @@
 [
   {
-    "id": 1,
-    "title": "Module 1: Giới thiệu & Văn hoá",
-    "description": "Hiểu rõ về văn hoá và giá trị cốt lõi của Citics.",
-    "content": {
-      "type": "video",
-      "url": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-      "duration": "5:00"
-    },
-    "quiz": []
-  },
-  {
     "id": 2,
-    "title": "Module 2: Những điều nên làm và không nên làm",
+    "title": "Giới thiệu về CACN - Citics",
     "description": "Những nội dung quan trọng bạn cần nắm rõ khi hợp tác.",
     "content": {
-      "type": "slide",
-      "slides": [
-        "https://placehold.co/800x450/0741DA/FFFFFF?text=Slide+1:+Quy+Tac+Ung+Xu",
-        "https://placehold.co/800x450/11DAEF/000000?text=Slide+2:+Cac+Hanh+Vi+Cam",
-        "https://placehold.co/800x450/FFBF01/000000?text=Slide+3:+Co+Che+Thuong+Phat"
-      ]
+      "type": "pdf",
+      "url": "/CACN-Citics-Agent-Cooperation-Network.pdf"
     },
     "quiz": []
   }

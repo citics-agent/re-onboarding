@@ -14,18 +14,16 @@ import QuestionBank from './data/questionBank.json';
 import { getRandomQuestions } from './utils/quizHelpers';
 
 // CẤU HÌNH: Số lượng câu hỏi muốn hiển thị mỗi Module
-const QUESTIONS_PER_MODULE = 3;
+const QUESTIONS_PER_MODULE = 5;
 
-// Steps Mapping (2 Modules):
+// Steps Mapping (1 Module):
 // 0: Welcome
 // 1: Input Info
-// 2: Module 1
-// 3: Quiz 1
-// 4: Module 2
-// 5: Quiz 2
-// 6: Role Selection
-// 7: Success
-const TOTAL_APP_STEPS = 6; // Steps 1-6 (excluding Welcome/Success)
+// 2: Module 2
+// 3: Quiz 2
+// 4: Role Selection
+// 5: Success
+const TOTAL_APP_STEPS = 4; // Steps 1-4 (excluding Welcome/Success)
 
 function App() {
   const [step, setStep] = useState(0);
@@ -34,6 +32,10 @@ function App() {
   const [activeModules, setActiveModules] = useState([]);
   const [moduleScores, setModuleScores] = useState({});
   const [startTime, setStartTime] = useState(null);
+
+  // Tracking document view time
+  const [documentViewStartTime, setDocumentViewStartTime] = useState(null);
+  const [documentViewDuration, setDocumentViewDuration] = useState(0);
   // Holds remote question bank fetched silently in the background
   const remoteBankRef = useRef(null);
 
@@ -87,10 +89,16 @@ function App() {
     // Upgrade to remote questions right before modules begin (if fetch has completed)
     upgradeToRemoteQuestions();
     setStartTime(Date.now());
+    setDocumentViewStartTime(Date.now()); // Start document view timer
     setStep(2);
   };
 
   const handleModuleComplete = () => {
+    if (documentViewStartTime) {
+      const viewDurationSeconds = Math.floor((Date.now() - documentViewStartTime) / 1000);
+      setDocumentViewDuration(prev => prev + viewDurationSeconds);
+      setDocumentViewStartTime(null);
+    }
     setStep(prev => prev + 1);
   };
 
@@ -120,11 +128,12 @@ function App() {
         total_score: totalScore,
         timestamp: formattedTimestamp,
         duration: formattedDuration,
+        document_view_duration: `${Math.floor(documentViewDuration / 60)} phút ${documentViewDuration % 60} giây`,
         status: `Passed (${totalScore}/${totalQuestions})`
       };
       await submitData(finalData);
       setIsLoading(false);
-      setStep(7); // Go directly to Success
+      setStep(5); // Go directly to Success
     } else {
       setStep(prev => prev + 1); // Next module
     }
@@ -148,6 +157,7 @@ function App() {
       setActiveModules(updatedModules);
     }
 
+    setDocumentViewStartTime(Date.now()); // Restart document view timer for the retake
     setStep(prev => prev - 1); // Go back to re-read the module
   };
 
@@ -175,7 +185,7 @@ function App() {
 
     await submitData(finalData);
     setIsLoading(false);
-    setStep(7); // Success
+    setStep(5); // Success
   };
 
   const handleFinish = () => {
@@ -189,8 +199,8 @@ function App() {
     }, 2000);
   };
 
-  // Calculate global progress (steps 1-6)
-  const globalProgress = step >= 1 && step <= 6 ? Math.round((step / 6) * 100) : 0;
+  // Calculate global progress (steps 1-4)
+  const globalProgress = step >= 1 && step <= 4 ? Math.round((step / 4) * 100) : 0;
 
   const renderContent = () => {
 
@@ -208,16 +218,14 @@ function App() {
       case 1: return <InputInfoScreen onNext={handleInfoSubmit} onBack={handleBack} />;
       case 2: return <ModuleCard module={activeModules[0]} onStartQuiz={handleModuleComplete} onBack={handleBack} />;
       case 3: return <QuizCard module={activeModules[0]} onPass={handleQuizPass} onFail={() => handleQuizFail()} onBack={handleBack} />;
-      case 4: return <ModuleCard module={activeModules[1]} onStartQuiz={handleModuleComplete} onBack={handleBack} />;
-      case 5: return <QuizCard module={activeModules[1]} onPass={handleQuizPass} onFail={() => handleQuizFail()} onBack={handleBack} />;
-      case 6: return <RoleSelection onSelect={handleRoleSelect} onBack={handleBack} />;
-      case 7: return <SuccessScreen onFinish={handleFinish} />;
+      case 4: return <RoleSelection onSelect={handleRoleSelect} onBack={handleBack} />;
+      case 5: return <SuccessScreen onFinish={handleFinish} />;
       default: return <div>Unknown Step</div>;
     }
   };
 
   return (
-    <AppLayout progress={globalProgress} showProgress={step >= 1 && step <= 6}>
+    <AppLayout progress={globalProgress} showProgress={step >= 1 && step <= 4}>
       {renderContent()}
     </AppLayout>
   );

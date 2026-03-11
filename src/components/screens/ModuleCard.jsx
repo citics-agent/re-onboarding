@@ -19,19 +19,10 @@ export const ModuleCard = ({ module, onStartQuiz, onBack }) => {
             className="w-full"
         >
             <Card className="max-w-5xl w-full mx-auto overflow-visible relative">
-                {/* Module number badge */}
-                <div className="absolute -top-4 -right-2 md:-top-5 md:-right-3 z-10">
-                    <div className="relative">
-                        <div className="absolute inset-0 bg-citics-blue/10 blur-lg rounded-2xl" />
-                        <div className="relative bg-white border border-slate-200 hover:border-citics-blue transition-colors text-slate-900 font-black text-2xl md:text-3xl px-4 py-2 rounded-2xl shadow-sm leading-none tracking-tight backdrop-blur-md">
-                            {moduleNum}
-                        </div>
-                    </div>
-                </div>
+
 
                 {/* Header */}
                 <div className="mb-4 pr-16">
-                    <div className="text-xs text-slate-500 uppercase tracking-widest font-bold mb-1">Module {id}</div>
                     <h2 className="text-xl md:text-2xl font-black text-slate-900 leading-tight">{title}</h2>
                     <p className="text-slate-600 font-medium mt-1.5 text-sm leading-relaxed">{description}</p>
                 </div>
@@ -50,7 +41,7 @@ export const ModuleCard = ({ module, onStartQuiz, onBack }) => {
 
                 {/* Content Area */}
                 <div className="mb-6 rounded-xl overflow-hidden border border-slate-100 shadow-sm">
-                    {content.type === 'video' ? (
+                    {content.type === 'video' || content.type === 'pdf' ? (
                         <div className="aspect-video bg-slate-100 border border-slate-200 rounded-xl overflow-hidden">
                             <iframe
                                 className="w-full h-full"

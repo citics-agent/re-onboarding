@@ -37,8 +37,8 @@ export const useQuiz = (questions) => {
     };
 
     const score = isSubmitted ? calculateScore() : 0;
-    // Passing score: 4 out of 5 (80%)
-    const PASS_THRESHOLD = Math.ceil(questions.length * 0.8);
+    // Passing score: 100% (all questions must be correct)
+    const PASS_THRESHOLD = questions.length;
     const isPassed = score >= PASS_THRESHOLD;
 
     return {

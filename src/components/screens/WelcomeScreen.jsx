@@ -4,8 +4,8 @@ import { motion } from 'framer-motion';
 import { BookOpen, HelpCircle, Clock } from 'lucide-react';
 
 const stats = [
-    { icon: BookOpen, label: '2 Phần' },
-    { icon: HelpCircle, label: '6 Câu hỏi' },
+    { icon: BookOpen, label: '1 Phần' },
+    { icon: HelpCircle, label: '5 Câu hỏi' },
     { icon: Clock, label: '~5 phút' },
 ];
 
