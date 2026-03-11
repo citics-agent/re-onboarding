@@ -2,104 +2,122 @@
     "1": [
         {
             "id": "q1_1",
-            "question": "Citics Agent là gì?",
-            "options": [
-                "Nhân viên sale",
-                "Đối tác kinh doanh",
-                "Cộng tác viên"
-            ],
+            "question": "CACN là tên viết tắt của cái gì?",
+            "options": ["Citics Agent Company Network", "Citics Agent Cooperation Network", "Citics Automation Center Network"],
             "correct": 1
         },
         {
             "id": "q1_2",
-            "question": "Giá trị cốt lõi nào KHÔNG thuộc về Citics?",
-            "options": [
-                "Chính trực",
-                "Sáng tạo",
-                "Làm việc riêng lẻ"
-            ],
-            "correct": 2
+            "question": "Vai trò của Agent tại Citics là gì?",
+            "options": ["Nhân viên thời vụ", "Đối tác kinh doanh độc lập (Partner)", "Cộng tác viên không hưởng lương"],
+            "correct": 1
         },
         {
             "id": "q1_3",
-            "question": "Mục tiêu của Citics năm 2026 là gì?",
-            "options": [
-                "Mở rộng toàn cầu",
-                "Thống lĩnh thị trường nội địa",
-                "Giữ nguyên quy mô"
-            ],
+            "question": "Role Mortgage Agent chịu trách nhiệm chính cho mảng nào?",
+            "options": ["Tìm kiếm nguồn hàng BĐS", "Tư vấn các giải pháp vay vốn ngân hàng", "Thực thi thủ tục pháp lý"],
             "correct": 1
         },
         {
             "id": "q1_4",
-            "question": "Citics hoạt động trong lĩnh vực nào?",
-            "options": [
-                "Y tế",
-                "Bất động sản công nghệ",
-                "Giáo dục"
-            ],
-            "correct": 1
-        },
-        {
-            "id": "q1_5",
-            "question": "Màu sắc chủ đạo của thương hiệu Citics là gì?",
-            "options": [
-                "Đỏ & Vàng",
-                "Xanh dương & Xanh ngọc",
-                "Đen & Trắng"
-            ],
-            "correct": 1
-        }
-    ],
-    "2": [
-        {
-            "id": "q2_1",
-            "question": "Hành vi nào bị nghiêm cấm tuyệt đối?",
-            "options": [
-                "Chia sẻ thông tin nội bộ",
-                "Hỏi mentor",
-                "Làm việc ngoài giờ"
-            ],
+            "question": "Listing Agent được định nghĩa là gì?",
+            "options": ["Đại diện chủ nhà, tìm kiếm và chuẩn hóa nguồn hàng", "Đại diện khách mua, tìm khách và dẫn khách", "Người định giá tài sản"],
             "correct": 0
         },
         {
-            "id": "q2_2",
-            "question": "Khi phát hiện vi phạm, bạn cần làm gì?",
-            "options": [
-                "Im lặng",
-                "Báo cáo ngay để xử lý",
-                "Tham gia cùng"
-            ],
+            "id": "q1_5",
+            "question": "Buyer Agent là người thực hiện công việc nào sau đây?",
+            "options": ["Đăng tin nguồn hàng", "Tìm kiếm, tư vấn và dẫn khách xem nhà", "Hoàn tất hồ sơ vay vốn"],
             "correct": 1
         },
         {
-            "id": "q2_3",
-            "question": "Mức phạt cao nhất cho vi phạm nghiêm trọng là?",
-            "options": [
-                "Cảnh cáo",
-                "Trừ lương",
-                "Chấm dứt hợp đồng vĩnh viễn"
-            ],
+            "id": "q1_6",
+            "question": "Khách hàng hỏi bạn: Anh là nhân viên Citics hay cộng tác viên? — Bạn trả lời đúng nhất là gì?",
+            "options": ["Tôi là nhân viên sale của Citics", "Tôi là Đối tác kinh doanh độc lập (CACN) phối hợp cùng Citics", "Tôi làm freelance, không liên quan đến Citics"],
+            "correct": 1
+        },
+        {
+            "id": "q1_7",
+            "question": "Bước nào Agent bắt buộc phải hoàn thành trước khi được tham gia Campaign kiếm tiền?",
+            "options": ["Giới thiệu ít nhất 3 khách hàng tiềm năng", "Vượt qua bài Test và ký hợp đồng điện tử (E-Sign)", "Tham dự buổi họp offline tại Store"],
+            "correct": 1
+        },
+        {
+            "id": "q1_8",
+            "question": "Nếu được công nhận cả Role Listing và Mortgage Agent, bạn có lợi thế gì?",
+            "options": ["Được tăng lương cơ bản từ Citics", "Được tham gia nhiều Campaign và có nhiều nguồn thu nhập đa dạng hơn", "Được miễn phí đào tạo toàn bộ các khóa tiếp theo"],
+            "correct": 1
+        },
+        {
+            "id": "q1_9",
+            "question": "Sau khi hoàn tất Re-Onboarding, Agent được hưởng lợi thế gì?",
+            "options": ["Được tăng tỷ lệ hoa hồng 20%", "Được ưu tiên nhận Lead/Nguồn hàng từ hệ thống và tham gia các Campaign", "Được miễn phí sử dụng App trong 3 tháng"],
+            "correct": 1
+        },
+        {
+            "id": "q1_10",
+            "question": "Incentive đặc biệt dành cho Mortgage Agent trong Q1.2026 là gì?",
+            "options": ["Thưởng 1 triệu cho mỗi hồ sơ", "100% Hoa hồng cho 05 hồ sơ giải ngân đầu tiên", "Miễn phí phí thành viên"],
+            "correct": 1
+        },
+        {
+            "id": "q1_11",
+            "question": "Buyer Agent nhận được incentive gì trong chiến dịch Q1.2026?",
+            "options": ["Thưởng nóng trên mỗi lượt dẫn khách (Tour) thành công", "Tặng Voucher mua sắm", "Gấp đôi hoa hồng chốt deal"],
+            "correct": 0
+        },
+        {
+            "id": "q1_12",
+            "question": "Listing Agent nhận incentive Q1.2026 dựa trên chỉ số nào?",
+            "options": ["Số tin đăng bất kỳ", "Mỗi gói 10 nguồn hàng chuẩn (Standard Listings)", "Số lần chủ nhà gọi điện"],
+            "correct": 1
+        },
+        {
+            "id": "q1_13",
+            "question": "Citics cung cấp yếu tố nào trong mô hình hợp tác?",
+            "options": ["Khách hàng thân thiết của Agent", "Nền tảng (Tech), Sản phẩm (BU) và Điểm thực thi (Store)", "Văn phòng làm việc riêng cho Agent"],
+            "correct": 1
+        },
+        {
+            "id": "q1_14",
+            "question": "Agent cung cấp yếu tố nào trong mô hình hợp tác win-win?",
+            "options": ["Kết nối (Network) và Chuyên môn", "Vốn đầu tư vào Store", "Phần mềm bán hàng"],
+            "correct": 0
+        },
+        {
+            "id": "q1_15",
+            "question": "Bạn cần làm gì để được cấp Role chính thức sau khi học?",
+            "options": ["Chờ Store gọi điện", "Vượt qua bài Test và ký hợp đồng điện tử (E-Sign)", "Giới thiệu 3 Agent khác tham gia"],
+            "correct": 1
+        },
+        {
+            "id": "q1_16",
+            "question": "Khi gặp vấn đề giao dịch hoặc cần hỗ trợ, Agent liên hệ đơn vị nào trước tiên?",
+            "options": ["BU (Business Unit)", "Store (thông tin Store Lead trong mục Tài Khoản trên App)", "Gọi lên tổng đài Citics"],
+            "correct": 1
+        },
+        {
+            "id": "q1_17",
+            "question": "Bạn chỉ là Listing Agent nhưng cần kết nối khách với Buyer. Bước đúng là gì?",
+            "options": ["Tự chuyển sang làm Buyer Agent để phục vụ khách luôn", "Kết nối yêu cầu của khách qua luồng App để chuyển sang Buyer Agent phù hợp", "Gửi số điện thoại cá nhân của một Agent khác cho khách tự liên hệ"],
+            "correct": 1
+        },
+        {
+            "id": "q1_18",
+            "question": "Đơn vị nào quản lý quy tắc hợp tác và xử lý vi phạm của Agent?",
+            "options": ["Store", "BU", "CACN"],
             "correct": 2
         },
         {
-            "id": "q2_4",
-            "question": "Agent có được phép nhận tiền riêng của khách hàng không?",
-            "options": [
-                "Được phép",
-                "Tuyệt đối không",
-                "Tùy trường hợp"
-            ],
+            "id": "q1_19",
+            "question": "Tại sao Agent cần đăng ký đúng Role trên App ngay khi bắt đầu?",
+            "options": ["Để App hiển thị đúng màu giao diện theo từng Role", "Để hệ thống ghi nhận đúng hoa hồng và thành tích theo từng loại công việc", "Để được cấp badge hiển thị trên Profile"],
             "correct": 1
         },
         {
-            "id": "q2_5",
-            "question": "Khi có tranh chấp với khách hàng, Agent nên làm gì đầu tiên?",
-            "options": [
-                "Tự giải quyết riêng",
-                "Báo cáo ngay cho STL/Quản lý",
-                "Nhờ đồng nghiệp can thiệp"
-            ],
+            "id": "q1_20",
+            "question": "Cơ hội ưu tiên nhận lead/nguồn từ hệ thống dành cho đối tượng nào?",
+            "options": ["Tất cả những ai tải App ẩn danh", "Agent hoàn thành chương trình Re-Onboarding", "Khách hàng thân thiết"],
             "correct": 1
         }
     ]
