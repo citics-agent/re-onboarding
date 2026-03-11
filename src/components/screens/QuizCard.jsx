@@ -61,9 +61,9 @@ export const QuizCard = ({ module, onPass, onFail, onBack }) => {
                             className="flex justify-center mb-4"
                         >
                             {isPassed ? (
-                                <CheckCircle className="w-16 h-16 text-citics-blue drop-shadow-sm" />
+                                <CheckCircle className="w-12 h-12 text-citics-blue drop-shadow-sm" />
                             ) : (
-                                <XCircle className="w-16 h-16 text-red-500 drop-shadow-sm" />
+                                <XCircle className="w-12 h-12 text-red-500 drop-shadow-sm" />
                             )}
                         </motion.div>
 
@@ -82,14 +82,14 @@ export const QuizCard = ({ module, onPass, onFail, onBack }) => {
 
                             {/* Big score */}
                             <div className={clsx(
-                                "text-7xl font-black mb-1 leading-none",
+                                "text-6xl font-black mb-1 leading-none",
                                 isPassed
                                     ? "text-citics-blue"
                                     : "text-red-500"
                             )}>
                                 {score}<span className="text-3xl text-slate-300">/{totalQuestions}</span>
                             </div>
-                            <p className="text-slate-500 font-medium text-sm mb-6">câu trả lời đúng</p>
+                            <p className="text-slate-500 font-medium text-sm mb-4">câu trả lời đúng</p>
                         </motion.div>
 
                         {/* Per-answer dot breakdown */}
@@ -97,7 +97,7 @@ export const QuizCard = ({ module, onPass, onFail, onBack }) => {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.4 }}
-                            className="flex justify-center gap-2 mb-6"
+                            className="flex justify-center gap-2 mb-4"
                         >
                             {allAnswers.map((a, i) => (
                                 <div
@@ -147,7 +147,7 @@ export const QuizCard = ({ module, onPass, onFail, onBack }) => {
             className="w-full"
         >
             <Card className="max-w-md w-full mx-auto">
-                <div className="mb-6">
+                <div className="mb-4">
                     <div className="flex justify-between text-xs text-slate-500 mb-2 font-bold uppercase tracking-wider">
                         <span>Câu hỏi {currentQuestionIndex + 1}/{totalQuestions}</span>
                         <span>{module.title}</span>
@@ -162,13 +162,13 @@ export const QuizCard = ({ module, onPass, onFail, onBack }) => {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
                         transition={{ duration: 0.3 }}
-                        className="text-lg md:text-xl font-black text-slate-900 mb-8 min-h-[60px]"
+                        className="text-lg md:text-xl font-black text-slate-900 mb-5"
                     >
                         {currentQuestion.question}
                     </motion.h3>
                 </AnimatePresence>
 
-                <div className="space-y-3 mb-8">
+                <div className="space-y-2 mb-5">
                     {currentQuestion.options.map((option, idx) => (
                         <motion.div
                             key={idx}
@@ -177,7 +177,7 @@ export const QuizCard = ({ module, onPass, onFail, onBack }) => {
                             transition={{ delay: idx * 0.1 }}
                             onClick={() => selectAnswer(currentQuestion.id, idx)}
                             className={clsx(
-                                "p-4 rounded-xl border cursor-pointer transition-all duration-200 relative overflow-hidden group",
+                                "p-3 rounded-xl border cursor-pointer transition-all duration-200 relative overflow-hidden group",
                                 answers[currentQuestion.id] === idx
                                     ? "bg-citics-blue/5 border-citics-blue text-citics-blue shadow-sm"
                                     : "bg-white border-slate-200 text-slate-600 hover:bg-slate-50 hover:border-slate-300"

@@ -32,10 +32,10 @@ export const RoleSelection = ({ onSelect, onBack }) => {
             transition={{ duration: 0.6 }}
             className="max-w-4xl w-full mx-auto text-center px-4"
         >
-            <h2 className="text-3xl md:text-4xl font-black text-citics-blue mb-3 tracking-tight">Chọn hướng phát triển</h2>
-            <p className="text-slate-600 font-medium mb-10">Lựa chọn này sẽ xác định dịch vụ bạn đăng ký trên App Citics Agent.</p>
+            <h2 className="text-2xl md:text-4xl font-black text-citics-blue mb-3 tracking-tight">Chọn hướng phát triển</h2>
+            <p className="text-slate-600 font-medium mb-6">Lựa chọn này sẽ xác định dịch vụ bạn đăng ký trên App Citics Agent.</p>
 
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-3 gap-3 md:gap-6">
                 {roles.map((role, i) => {
                     const Icon = role.icon;
                     return (
@@ -51,8 +51,8 @@ export const RoleSelection = ({ onSelect, onBack }) => {
                             >
                                 <div className="absolute inset-0 bg-slate-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-                                <div className="relative bg-white border border-slate-200 rounded-full w-20 h-20 mx-auto flex items-center justify-center mb-5 group-hover:scale-110 group-hover:border-citics-blue transition-all duration-300 shadow-sm">
-                                    <Icon className="w-9 h-9 text-slate-400 group-hover:text-citics-blue transition-colors" />
+                                <div className="relative bg-white border border-slate-200 rounded-full w-14 h-14 md:w-20 md:h-20 mx-auto flex items-center justify-center mb-3 group-hover:scale-110 group-hover:border-citics-blue transition-all duration-300 shadow-sm">
+                                    <Icon className="w-6 h-6 md:w-9 md:h-9 text-slate-400 group-hover:text-citics-blue transition-colors" />
                                 </div>
                                 <h3 className="relative text-xl font-bold text-slate-900 mb-2 group-hover:text-citics-blue transition-colors">{role.title}</h3>
                                 <p className="relative text-slate-600 text-sm leading-relaxed">
@@ -64,7 +64,7 @@ export const RoleSelection = ({ onSelect, onBack }) => {
                 })}
             </div>
 
-            <div className="mt-8">
+            <div className="mt-4 md:mt-8">
                 <Button type="button" variant="outline" onClick={onBack} className="w-full max-w-xs mx-auto text-slate-600 border-slate-300 hover:bg-slate-50">
                     Quay lại
                 </Button>

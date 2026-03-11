@@ -93,8 +93,8 @@ export const InputInfoScreen = ({ onNext, onBack }) => {
             className="w-full"
         >
             <Card className="max-w-md w-full mx-auto p-5 md:p-6 lg:p-7">
-                <h2 className="text-xl font-bold text-center text-slate-900 mb-5">Thông tin Agent</h2>
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <h2 className="text-xl font-bold text-center text-slate-900 mb-4">Thông tin Agent</h2>
+                <form onSubmit={handleSubmit} className="space-y-3">
                     {formFields.filter(isFieldVisible).map((field, index) => (
                         <div key={index} className="relative">
                             <label className="block text-[11px] font-bold text-slate-700 mb-1 uppercase tracking-wide">

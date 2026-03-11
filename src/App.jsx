@@ -189,14 +189,7 @@ function App() {
   };
 
   const handleFinish = () => {
-    // Deeplink to Citics Agent App. Fallback to App Store if app is not installed.
-    const deepLink = 'citics://agent/register';
-    const appStoreLink = 'https://apps.apple.com/app/citics-agent'; // Placeholder
-
-    window.location = deepLink;
-    setTimeout(() => {
-      window.location = appStoreLink;
-    }, 2000);
+    window.location.href = 'https://onelink.to/a5ekgf';
   };
 
   // Calculate global progress (steps 1-4)

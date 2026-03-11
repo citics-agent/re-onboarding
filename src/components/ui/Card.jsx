@@ -10,7 +10,7 @@ export const Card = ({ className, children, ...props }) => {
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.4 }}
             className={twMerge(
-                "relative bg-white border border-slate-100 rounded-3xl p-6 shadow-xl",
+                "relative bg-white border border-slate-100 rounded-3xl p-4 md:p-6 shadow-xl",
                 className
             )}
             {...props}
