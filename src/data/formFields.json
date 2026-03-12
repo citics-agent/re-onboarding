@@ -37,9 +37,24 @@
             "Tín dụng ngân hàng",
             "Thẩm định giá BĐS",
             "Đầu tư / Kinh doanh tự do",
-            "Sinh viên"
+            "Sinh viên",
+            "Khác"
         ],
         "errorMessage": "Vui lòng chọn nghề nghiệp"
+    },
+    {
+        "id": "otherOccupation",
+        "label": "Nhập nghề nghiệp cụ thể",
+        "type": "text",
+        "placeholder": "Ví dụ: Kiến trúc sư",
+        "required": true,
+        "dependsOn": {
+            "field": "occupation",
+            "value": [
+                "Khác"
+            ]
+        },
+        "errorMessage": "Vui lòng nhập nghề nghiệp"
     },
     {
         "id": "provinceCity",

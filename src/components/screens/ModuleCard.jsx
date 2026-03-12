@@ -76,7 +76,12 @@ const PdfViewer = ({ url, title }) => {
 };
 
 export const ModuleCard = ({ module, onStartQuiz, onBack }) => {
-    const { id, title, description, content, quiz } = module;
+    const { id, title, description, content: rawContent, quiz } = module;
+    // Resolve content URL against Vite base path (for GitHub Pages sub-path)
+    const content = { ...rawContent };
+    if (content.url && content.url.startsWith('/')) {
+        content.url = import.meta.env.BASE_URL + content.url.slice(1);
+    }
     const moduleNum = String(id).padStart(2, '0');
     const questionCount = quiz?.length || 0;
 
