@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { SlideViewer } from '../ui/SlideViewer';
 import { HelpCircle, Star, Maximize, X } from 'lucide-react';
 
@@ -171,6 +171,23 @@ export const ModuleCard = ({ module, onStartQuiz, onBack, isRetry = false }) => 
             ? (timeElapsed && hasReadEnough)
             : ((timeElapsed && hasReadEnough) || validPages.size >= threshold));
 
+    const [hint, setHint] = React.useState(null);
+    const hintTimer = React.useRef(null);
+
+    const handleLockedClick = () => {
+        clearTimeout(hintTimer.current);
+        let msg;
+        if (!hasReadEnough && remainingSeconds > 0) {
+            msg = `Hãy xem thêm tài liệu nhé! (${visitedPages.size}/${totalSlides} trang)`;
+        } else if (!hasReadEnough) {
+            msg = `Bạn cần xem ít nhất ${minReadPages} trang để tiếp tục`;
+        } else {
+            msg = `Còn ${Math.floor(remainingSeconds / 60)}:${String(remainingSeconds % 60).padStart(2, '0')} nữa thôi, đọc thêm nhé!`;
+        }
+        setHint(msg);
+        hintTimer.current = setTimeout(() => setHint(null), 3000);
+    };
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -234,15 +251,28 @@ export const ModuleCard = ({ module, onStartQuiz, onBack, isRetry = false }) => 
                     )}
                 </div>
 
+                {/* Hint popup */}
+                <AnimatePresence>
+                    {hint && (
+                        <motion.div
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 8 }}
+                            className="mb-2 px-4 py-2.5 rounded-lg bg-amber-50 border border-amber-200 text-amber-700 text-xs font-medium text-center"
+                        >
+                            {hint}
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+
                 {/* CTA */}
                 <div className="flex gap-3">
                     <Button type="button" variant="outline" onClick={onBack} className="w-1/3 text-slate-600 border-slate-200 hover:bg-slate-50 px-2 text-sm md:text-base">
                         Quay lại
                     </Button>
                     <Button
-                        onClick={canStart ? onStartQuiz : undefined}
-                        disabled={!canStart}
-                        className={`w-2/3 font-semibold group px-2 text-sm md:text-base transition-colors ${canStart ? 'shadow-lg shadow-citics-turquoise/20' : 'bg-slate-300 text-slate-500 cursor-not-allowed'}`}
+                        onClick={canStart ? onStartQuiz : handleLockedClick}
+                        className={`w-2/3 font-semibold group px-2 text-sm md:text-base transition-colors ${canStart ? 'shadow-lg shadow-citics-turquoise/20' : 'bg-slate-300 text-slate-500'}`}
                     >
                         {canStart
                             ? <>Bắt đầu <span className="ml-2 group-hover:translate-x-1 inline-block transition-transform">→</span></>
