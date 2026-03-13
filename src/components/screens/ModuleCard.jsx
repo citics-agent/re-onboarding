@@ -4,7 +4,7 @@ import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SlideViewer } from '../ui/SlideViewer';
-import { HelpCircle, Star, Maximize, X } from 'lucide-react';
+import { HelpCircle, Star, Maximize, X, Smartphone, RotateCcw } from 'lucide-react';
 
 const PdfViewer = ({ url, title }) => {
     const [isFullscreen, setIsFullscreen] = React.useState(false);
@@ -171,6 +171,17 @@ export const ModuleCard = ({ module, onStartQuiz, onBack, isRetry = false }) => 
             ? (timeElapsed && hasReadEnough)
             : ((timeElapsed && hasReadEnough) || validPages.size >= threshold));
 
+    // Fullscreen tip — show once on mobile
+    const [showTip, setShowTip] = React.useState(
+        typeof window !== 'undefined' && window.innerWidth < 768
+    );
+    React.useEffect(() => {
+        if (showTip) {
+            const t = setTimeout(() => setShowTip(false), 6000);
+            return () => clearTimeout(t);
+        }
+    }, [showTip]);
+
     const [hint, setHint] = React.useState(null);
     const hintTimer = React.useRef(null);
 
@@ -216,6 +227,28 @@ export const ModuleCard = ({ module, onStartQuiz, onBack, isRetry = false }) => 
                         Yêu cầu {Math.ceil(questionCount * 0.8)}/{questionCount} để qua
                     </span>
                 </div>
+
+                {/* Fullscreen tip */}
+                <AnimatePresence>
+                    {showTip && (
+                        <motion.div
+                            initial={{ opacity: 0, y: -8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -8 }}
+                            className="mb-3 px-4 py-3 rounded-lg bg-citics-blue/5 border border-citics-blue/20 flex items-center gap-3 cursor-pointer"
+                            onClick={() => setShowTip(false)}
+                        >
+                            <div className="flex items-center gap-1.5 text-citics-blue">
+                                <Maximize size={16} />
+                                <span className="text-lg">+</span>
+                                <RotateCcw size={16} />
+                            </div>
+                            <p className="text-xs font-medium text-slate-600">
+                                Mở <span className="text-citics-blue font-bold">toàn màn hình</span> và <span className="text-citics-blue font-bold">xoay ngang</span> để xem tài liệu tốt nhất nhé!
+                            </p>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
 
                 {/* Content Area */}
                 <div className="mb-4 rounded-xl overflow-hidden border border-slate-100 shadow-sm">
