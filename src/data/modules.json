@@ -4,8 +4,33 @@
     "title": "Giới thiệu về CACN - Citics",
     "description": "Những nội dung quan trọng bạn cần nắm rõ khi hợp tác.",
     "content": {
-      "type": "pdf",
-      "url": "/CACN-Citics-Agent-Cooperation-Network.pdf"
+      "type": "slides",
+      "slides": [
+        "/slides/slide-01.png",
+        "/slides/slide-02.png",
+        "/slides/slide-03.png",
+        "/slides/slide-04.png",
+        "/slides/slide-05.png",
+        "/slides/slide-06.png",
+        "/slides/slide-07.png",
+        "/slides/slide-08.png",
+        "/slides/slide-09.png",
+        "/slides/slide-10.png",
+        "/slides/slide-11.png",
+        "/slides/slide-12.png",
+        "/slides/slide-13.png",
+        "/slides/slide-14.png",
+        "/slides/slide-15.png",
+        "/slides/slide-16.png",
+        "/slides/slide-17.png",
+        "/slides/slide-18.png",
+        "/slides/slide-19.png",
+        "/slides/slide-20.png",
+        "/slides/slide-21.png",
+        "/slides/slide-22.png",
+        "/slides/slide-23.png",
+        "/slides/slide-24.png"
+      ]
     },
     "quiz": []
   }

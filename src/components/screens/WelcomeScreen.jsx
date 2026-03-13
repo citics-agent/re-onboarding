@@ -6,7 +6,7 @@ import { BookOpen, HelpCircle, Clock } from 'lucide-react';
 const stats = [
     { icon: BookOpen, label: '1 Phần' },
     { icon: HelpCircle, label: '5 Câu hỏi' },
-    { icon: Clock, label: '~5 phút' },
+    { icon: Clock, label: '~10 phút' },
 ];
 
 export const WelcomeScreen = ({ onStart }) => {

@@ -8,6 +8,7 @@ import { HelpCircle, Star, Maximize, X } from 'lucide-react';
 
 const PdfViewer = ({ url, title }) => {
     const [isFullscreen, setIsFullscreen] = React.useState(false);
+    const pdfUrl = `${url}#pagemode=none&view=FitH&toolbar=0&navpanes=0`;
 
     const fullscreenModal = isFullscreen && ReactDOM.createPortal(
         <div
@@ -24,14 +25,17 @@ const PdfViewer = ({ url, title }) => {
                     <X size={20} />
                 </button>
             </div>
-            {/* PDF iframe — takes remaining space */}
-            <iframe
-                className="flex-1 w-full bg-white"
-                src={url}
-                title={title}
-                frameBorder="0"
-                allowFullScreen
-            />
+            {/* PDF iframe — takes remaining space, hide bottom toolbar */}
+            <div className="flex-1 w-full relative overflow-hidden">
+                <iframe
+                    className="w-full bg-white"
+                    style={{ height: 'calc(100% + 40px)' }}
+                    src={pdfUrl}
+                    title={title}
+                    frameBorder="0"
+                    allowFullScreen
+                />
+            </div>
         </div>,
         document.body
     );
@@ -40,10 +44,11 @@ const PdfViewer = ({ url, title }) => {
         <>
             <div className="relative bg-slate-100 border border-slate-200 rounded-xl overflow-hidden group">
                 {/* Taller aspect ratio on mobile for portrait PDFs, 16:9 on desktop */}
-                <div className="aspect-[4/3] md:aspect-video">
+                <div className="aspect-[4/3] md:aspect-video overflow-hidden">
                     <iframe
-                        className="w-full h-full"
-                        src={url}
+                        className="w-full"
+                        style={{ height: 'calc(100% + 40px)' }}
+                        src={pdfUrl}
                         title={title}
                         frameBorder="0"
                         allowFullScreen
@@ -77,10 +82,13 @@ const PdfViewer = ({ url, title }) => {
 
 export const ModuleCard = ({ module, onStartQuiz, onBack }) => {
     const { id, title, description, content: rawContent, quiz } = module;
-    // Resolve content URL against Vite base path (for GitHub Pages sub-path)
+    // Resolve content URLs against Vite base path (for GitHub Pages sub-path)
     const content = { ...rawContent };
     if (content.url && content.url.startsWith('/')) {
         content.url = import.meta.env.BASE_URL + content.url.slice(1);
+    }
+    if (content.slides) {
+        content.slides = content.slides.map(s => s.startsWith('/') ? import.meta.env.BASE_URL + s.slice(1) : s);
     }
     const moduleNum = String(id).padStart(2, '0');
     const questionCount = quiz?.length || 0;

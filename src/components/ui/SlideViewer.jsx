@@ -142,7 +142,7 @@ export const SlideViewer = ({ slides }) => {
                         <button
                             key={i}
                             onClick={() => { const diff = i - imageIndex; if (diff !== 0) paginate(diff); }}
-                            className={`h-1.5 rounded-full transition-all ${i === imageIndex ? 'bg-slate-600 w-5' : 'bg-slate-300 w-1.5'}`}
+                            className={`h-1 rounded-full transition-all ${i === imageIndex ? 'bg-slate-600 w-3' : 'bg-slate-300 w-1'}`}
                         />
                     ))}
                 </div>

@@ -5,6 +5,7 @@
         "type": "text",
         "placeholder": "Nguyễn Văn A",
         "required": true,
+        "page": 1,
         "errorMessage": "Vui lòng nhập họ tên"
     },
     {
@@ -13,6 +14,7 @@
         "type": "email",
         "placeholder": "example@email.com",
         "required": false,
+        "page": 1,
         "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
         "errorMessage": "Vui lòng nhập đúng Email"
     },
@@ -22,6 +24,7 @@
         "type": "tel",
         "placeholder": "Nhập số điện thoại",
         "required": true,
+        "page": 1,
         "pattern": "^(0[3|5|7|8|9])+([0-9]{8})$",
         "errorMessage": "Số điện thoại không hợp lệ"
     },
@@ -31,6 +34,7 @@
         "type": "select",
         "placeholder": "Chọn nghề nghiệp",
         "required": true,
+        "page": 1,
         "options": [
             "Môi giới sơ cấp",
             "Môi giới thứ cấp",
@@ -48,6 +52,7 @@
         "type": "text",
         "placeholder": "Ví dụ: Kiến trúc sư",
         "required": true,
+        "page": 1,
         "dependsOn": {
             "field": "occupation",
             "value": [
@@ -57,15 +62,35 @@
         "errorMessage": "Vui lòng nhập nghề nghiệp"
     },
     {
+        "id": "currentServices",
+        "label": "Dịch vụ hiện nay đang hợp tác",
+        "type": "multiselect",
+        "placeholder": "Chọn dịch vụ",
+        "required": false,
+        "page": 2,
+        "options": [
+            "Kinh doanh thẩm định",
+            "Thực hiện Thẩm định",
+            "Giới thiệu khoản vay",
+            "Mua - Bán BĐS"
+        ]
+    },
+    {
         "id": "provinceCity",
         "label": "Tỉnh/Thành phố",
         "description": "(Theo địa lý hành chính trước 01/07/2025)",
         "type": "select",
         "placeholder": "Chọn Tỉnh/Thành phố",
         "required": true,
+        "page": 2,
         "options": [
             "Hồ Chí Minh",
             "Hà Nội",
+            "Đồng Nai",
+            "Bình Dương",
+            "Đà Nẵng",
+            "Khánh Hoà",
+            "Cần Thơ",
             "Khác"
         ],
         "errorMessage": "Vui lòng chọn Tỉnh/Thành phố"
@@ -76,6 +101,7 @@
         "type": "text",
         "placeholder": "Ví dụ: Đà Nẵng",
         "required": true,
+        "page": 2,
         "dependsOn": {
             "field": "provinceCity",
             "value": [
@@ -88,6 +114,7 @@
         "id": "area",
         "label": "Khu vực hoạt động chính",
         "type": "multiselect",
+        "page": 2,
         "dependsOn": {
             "field": "provinceCity",
             "value": [
@@ -122,6 +149,7 @@
         ],
         "maxSelect": 1,
         "required": true,
+        "tooltip": "Chọn khu vực hoạt động chính trong tỉnh thành bạn đã chọn ở trên",
         "errorMessage": "Vui lòng chọn 1 khu vực hoạt động chính"
     },
     {
@@ -130,33 +158,91 @@
         "type": "text",
         "placeholder": "Ví dụ: Quận Thanh Xuân, Quận Hà Đông",
         "required": true,
+        "page": 2,
+        "tooltip": "Nhập khu vực hoạt động chính trong tỉnh thành bạn đã chọn ở trên",
         "dependsOn": {
             "field": "provinceCity",
-            "value": [
-                "Hà Nội"
-            ]
+            "value": ["Hà Nội"]
         },
         "errorMessage": "Vui lòng nhập đầy đủ Quận/Huyện"
     },
     {
-        "id": "currentServices",
-        "label": "Dịch vụ hiện nay đang hợp tác",
-        "type": "multiselect",
-        "placeholder": "Chọn dịch vụ",
-        "required": false,
-        "options": [
-            "Kinh doanh thẩm định",
-            "Thực hiện Thẩm định",
-            "Giới thiệu khoản vay",
-            "Mua - Bán BĐS"
-        ]
+        "id": "area",
+        "label": "Quận/Huyện",
+        "type": "text",
+        "placeholder": "Ví dụ: TP. Biên Hoà, H. Nhơn Trạch",
+        "required": true,
+        "page": 2,
+        "tooltip": "Nhập khu vực hoạt động chính trong tỉnh thành bạn đã chọn ở trên",
+        "dependsOn": {
+            "field": "provinceCity",
+            "value": ["Đồng Nai"]
+        },
+        "errorMessage": "Vui lòng nhập đầy đủ Quận/Huyện"
+    },
+    {
+        "id": "area",
+        "label": "Quận/Huyện",
+        "type": "text",
+        "placeholder": "Ví dụ: TP. Thủ Dầu Một, TP. Dĩ An",
+        "required": true,
+        "page": 2,
+        "tooltip": "Nhập khu vực hoạt động chính trong tỉnh thành bạn đã chọn ở trên",
+        "dependsOn": {
+            "field": "provinceCity",
+            "value": ["Bình Dương"]
+        },
+        "errorMessage": "Vui lòng nhập đầy đủ Quận/Huyện"
+    },
+    {
+        "id": "area",
+        "label": "Quận/Huyện",
+        "type": "text",
+        "placeholder": "Ví dụ: Q. Hải Châu, Q. Thanh Khê",
+        "required": true,
+        "page": 2,
+        "tooltip": "Nhập khu vực hoạt động chính trong tỉnh thành bạn đã chọn ở trên",
+        "dependsOn": {
+            "field": "provinceCity",
+            "value": ["Đà Nẵng"]
+        },
+        "errorMessage": "Vui lòng nhập đầy đủ Quận/Huyện"
+    },
+    {
+        "id": "area",
+        "label": "Quận/Huyện",
+        "type": "text",
+        "placeholder": "Ví dụ: TP. Nha Trang, H. Cam Lâm",
+        "required": true,
+        "page": 2,
+        "tooltip": "Nhập khu vực hoạt động chính trong tỉnh thành bạn đã chọn ở trên",
+        "dependsOn": {
+            "field": "provinceCity",
+            "value": ["Khánh Hoà"]
+        },
+        "errorMessage": "Vui lòng nhập đầy đủ Quận/Huyện"
+    },
+    {
+        "id": "area",
+        "label": "Quận/Huyện",
+        "type": "text",
+        "placeholder": "Ví dụ: Q. Ninh Kiều, Q. Cái Răng",
+        "required": true,
+        "page": 2,
+        "tooltip": "Nhập khu vực hoạt động chính trong tỉnh thành bạn đã chọn ở trên",
+        "dependsOn": {
+            "field": "provinceCity",
+            "value": ["Cần Thơ"]
+        },
+        "errorMessage": "Vui lòng nhập đầy đủ Quận/Huyện"
     },
     {
         "id": "officeCode",
-        "label": "Người hỗ trợ trực tiếp",
+        "label": "Người hỗ trợ dịch vụ tại Citics",
         "type": "select",
-        "placeholder": "Chọn người hỗ trợ nội bộ của Citics",
+        "placeholder": "Chọn người hỗ trợ dịch vụ đang hợp tác tại Citics",
         "required": false,
+        "page": 2,
         "options": [
             "Không có người hỗ trợ",
             "Nguyễn Hoàng Phúc",
