@@ -104,6 +104,9 @@ export const ModuleCard = ({ module, onStartQuiz, onBack, isRetry = false }) => 
     const lastFlipTime = React.useRef(Date.now());
     const dwellTimer = React.useRef(null);
     const currentPage = React.useRef(0);
+    const rapidFlipCount = React.useRef(0);
+    const lastInteractionTime = React.useRef(Date.now());
+    const [isIdling, setIsIdling] = React.useState(false);
 
     const MIN_DWELL_MS = 2000;  // must stay on a slide at least 2s for it to count
     const MIN_FLIP_MS = 1000;   // ignore flips faster than 1s apart
@@ -129,6 +132,17 @@ export const ModuleCard = ({ module, onStartQuiz, onBack, isRetry = false }) => 
         return () => { clearTimeout(dwellTimer.current); clearTimeout(timerId); clearInterval(interval); };
     }, []);
 
+    // Idle detection: check every 5s if no interaction for 30s
+    React.useEffect(() => {
+        const IDLE_THRESHOLD_MS = 30000;
+        const idleInterval = setInterval(() => {
+            if (Date.now() - lastInteractionTime.current > IDLE_THRESHOLD_MS) {
+                setIsIdling(true);
+            }
+        }, 5000);
+        return () => clearInterval(idleInterval);
+    }, []);
+
     const handlePageChange = (pageIndex) => {
         const now = Date.now();
         const timeSinceLastFlip = now - lastFlipTime.current;
@@ -138,6 +152,17 @@ export const ModuleCard = ({ module, onStartQuiz, onBack, isRetry = false }) => 
 
         // Clear previous dwell timer
         clearTimeout(dwellTimer.current);
+
+        // Track rapid flipping
+        if (timeSinceLastFlip < MIN_FLIP_MS) {
+            rapidFlipCount.current += 1;
+        } else {
+            rapidFlipCount.current = 0;
+        }
+
+        // Update interaction time & reset idle
+        lastInteractionTime.current = now;
+        setIsIdling(false);
 
         // Ignore rapid flipping (anti-cheat)
         if (timeSinceLastFlip < MIN_FLIP_MS) {
@@ -188,12 +213,13 @@ export const ModuleCard = ({ module, onStartQuiz, onBack, isRetry = false }) => 
     const handleLockedClick = () => {
         clearTimeout(hintTimer.current);
         let msg;
-        if (!hasReadEnough && remainingSeconds > 0) {
-            msg = `Hãy xem thêm tài liệu nhé! (${visitedPages.size}/${totalSlides} trang)`;
-        } else if (!hasReadEnough) {
-            msg = `Bạn cần xem ít nhất ${minReadPages} trang để tiếp tục`;
+        if (rapidFlipCount.current >= 3) {
+            msg = 'Bạn đang lật trang hơi nhanh đấy, hãy đọc kỹ hơn nhé!';
+            rapidFlipCount.current = 0;
+        } else if (isIdling && !hasReadEnough) {
+            msg = 'Còn nhiều nội dung đang đợi bạn hoàn thành...';
         } else {
-            msg = `Còn ${Math.floor(remainingSeconds / 60)}:${String(remainingSeconds % 60).padStart(2, '0')} nữa thôi, đọc thêm nhé!`;
+            msg = `Hãy xem thêm tài liệu nhé! (${visitedPages.size}/${totalSlides} trang)`;
         }
         setHint(msg);
         hintTimer.current = setTimeout(() => setHint(null), 3000);
