@@ -168,7 +168,10 @@ function App() {
   };
 
   const handleFinish = () => {
-    window.location.href = 'https://onelink.to/a5ekgf';
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    window.location.href = isMobile
+      ? 'https://onelink.to/a5ekgf'
+      : 'https://agent.citics.vn/dang-nhap';
   };
 
   // Calculate global progress (steps 1-4)
