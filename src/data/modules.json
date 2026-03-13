@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "title": "Xem tài liệu sau để mở khoá câu hỏi",
+    "title": "Tìm hiểu thông tin hợp tác trước khi bắt đầu",
     "description": "Nội dung: Những nội dung quan trọng bạn cần nắm rõ khi hợp tác.",
     "content": {
       "type": "slides",
