@@ -19,11 +19,11 @@ export const WelcomeScreen = ({ onStart }) => {
             className="flex flex-col items-center justify-center text-center px-4"
         >
             <h1 className="text-3xl md:text-6xl font-black text-citics-blue mb-4 tracking-tight">
-                CITICS AGENT <br /> RE-ONBOARDING <span className="text-citics-turquoise"> 2026 </span>
+                MỞ KHOÁ TRUY CẬP <br /> CITICS AGENT <span className="text-citics-turquoise"> 2026 </span>
             </h1>
 
             <p className="text-lg md:text-xl text-slate-600 mb-6 max-w-lg leading-relaxed font-medium">
-                Hoàn thành chương trình để nhận được chính sách hoa hồng hấp dẫn cùng Citics
+                Hoàn thành các bước cập nhật ngắn để tiếp tục sử dụng Citics Agent và nhận chính sách hoa hồng hấp dẫn cùng Citics
             </p>
 
             {/* Stat cards - kept as requested info */}

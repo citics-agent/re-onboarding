@@ -44,7 +44,7 @@ export const SuccessScreen = ({ onFinish }) => {
             </motion.p>
             <motion.p
                 initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y, 0 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
                 className="text-base text-slate-500 mb-6 max-w-sm leading-relaxed"
             >

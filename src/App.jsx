@@ -111,29 +111,7 @@ function App() {
     const isLastModule = moduleIndex === activeModules.length - 1;
 
     if (isLastModule) {
-      // Skip RoleSelection — auto-submit and go to Success
-      setIsLoading(true);
-      const totalScore = Object.values(updatedScores).reduce((a, b) => a + b, 0);
-      const totalQuestions = activeModules.reduce((acc, module) => acc + module.quiz.length, 0);
-
-      const durationSeconds = startTime ? Math.floor((Date.now() - startTime) / 1000) : 0;
-      const formattedDuration = `${String(Math.floor(durationSeconds / 60)).padStart(2, '0')}:${String(durationSeconds % 60).padStart(2, '0')}`;
-
-      const gmt7Date = new Date(Date.now() + 7 * 3600 * 1000);
-      const formattedTimestamp = gmt7Date.toISOString().replace('T', ' ').substring(0, 19);
-
-      const finalData = {
-        ...userData,
-        ...updatedScores,
-        total_score: totalScore,
-        timestamp: formattedTimestamp,
-        duration: formattedDuration,
-        document_view_duration: `${Math.floor(documentViewDuration / 60)} phút ${documentViewDuration % 60} giây`,
-        status: `Passed (${totalScore}/${totalQuestions})`
-      };
-      await submitData(finalData);
-      setIsLoading(false);
-      setStep(5); // Go directly to Success
+      setStep(4); // Go to RoleSelection
     } else {
       setStep(prev => prev + 1); // Next module
     }
@@ -180,6 +158,7 @@ function App() {
       role,
       timestamp: formattedTimestamp,
       duration: formattedDuration,
+      document_view_duration: `${Math.floor(documentViewDuration / 60)} phút ${documentViewDuration % 60} giây`,
       status: `Passed (${totalScore}/${totalQuestions})`
     };
 

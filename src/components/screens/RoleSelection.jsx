@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card } from '../ui/Card';
+import { Button } from '../ui/Button';
 import { Home, Users, Landmark } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -32,8 +33,8 @@ export const RoleSelection = ({ onSelect, onBack }) => {
             transition={{ duration: 0.6 }}
             className="max-w-4xl w-full mx-auto text-center px-4"
         >
-            <h2 className="text-2xl md:text-4xl font-black text-citics-blue mb-3 tracking-tight">Chọn hướng phát triển</h2>
-            <p className="text-slate-600 font-medium mb-6">Lựa chọn này sẽ xác định dịch vụ bạn đăng ký trên App Citics Agent.</p>
+            <h2 className="text-2xl md:text-4xl font-black text-citics-blue mb-3 tracking-tight">Chọn Role thực hiện dịch vụ</h2>
+            <p className="text-slate-600 font-medium mb-6">Lựa chọn này sẽ cung cấp thông tin về Role bạn sẽ thực hiện cùng CACN.</p>
 
             <div className="grid md:grid-cols-3 gap-3 md:gap-6">
                 {roles.map((role, i) => {

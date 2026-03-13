@@ -97,23 +97,20 @@ export const InputInfoScreen = ({ onNext, onBack }) => {
                 <form onSubmit={handleSubmit} className="space-y-3">
                     {formFields.filter(isFieldVisible).map((field, index) => (
                         <div key={index} className="relative">
-                            <label className="block text-[11px] font-bold text-slate-700 mb-1 uppercase tracking-wide">
-                                {field.label}
-                                {field.required && <span className="text-red-500 ml-1">*</span>}
+                            <label className="flex items-baseline gap-1.5 text-[11px] font-bold text-slate-700 mb-1 uppercase tracking-wide">
+                                <span>{field.label}</span>
+                                {field.required && <span className="text-red-500">*</span>}
+                                {(field.description || !field.required) && (
+                                    <span className="text-[10px] text-slate-400 italic font-normal normal-case tracking-normal">
+                                        {field.description}{!field.required ? ' (Tuỳ chọn)' : ''}
+                                    </span>
+                                )}
                             </label>
-
-                            {(field.description || !field.required) && (
-                                <p className="text-[10px] text-slate-400 mb-2 italic -mt-0.5">
-                                    {field.description}
-                                    {!field.required && !field.description ? '(Tuỳ chọn)' : ''}
-                                    {!field.required && field.description ? ' (Tuỳ chọn)' : ''}
-                                </p>
-                            )}
 
                             {/* Multiselect */}
                             {field.type === 'multiselect' ? (
-                                <div className="max-h-40 overflow-y-auto pr-1 rounded-xl custom-scrollbar border border-slate-100 p-2 bg-slate-50/50">
-                                    <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                                <div className={`${field.maxSelect ? 'max-h-40 overflow-y-auto pr-1' : ''} rounded-xl custom-scrollbar border border-slate-100 p-2 bg-slate-50/50`}>
+                                    <div className={`flex flex-wrap gap-2 ${field.maxSelect ? 'grid grid-cols-2 md:grid-cols-3' : ''}`}>
                                         {field.options.map((option) => {
                                             const isSelected = (formData[field.id] || []).includes(option);
                                             return (
@@ -126,13 +123,11 @@ export const InputInfoScreen = ({ onNext, onBack }) => {
 
                                                         if (field.maxSelect === 1) {
                                                             next = [option]; // Single select: always override, no un-ticking needed
+                                                        } else if (isSelected) {
+                                                            next = current.filter(i => i !== option);
                                                         } else {
-                                                            if (isSelected) {
-                                                                next = current.filter(i => i !== option);
-                                                            } else {
-                                                                if (current.length >= field.maxSelect) return;
-                                                                next = [...current, option];
-                                                            }
+                                                            if (field.maxSelect && current.length >= field.maxSelect) return;
+                                                            next = [...current, option];
                                                         }
                                                         handleChange(field.id, next);
                                                     }}

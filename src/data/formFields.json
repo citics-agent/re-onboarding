@@ -12,7 +12,7 @@
         "label": "Email",
         "type": "email",
         "placeholder": "example@email.com",
-        "required": true,
+        "required": false,
         "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
         "errorMessage": "Vui lòng nhập đúng Email"
     },
@@ -139,10 +139,44 @@
         "errorMessage": "Vui lòng nhập đầy đủ Quận/Huyện"
     },
     {
+        "id": "currentServices",
+        "label": "Dịch vụ hiện nay đang hợp tác",
+        "type": "multiselect",
+        "placeholder": "Chọn dịch vụ",
+        "required": false,
+        "options": [
+            "Kinh doanh thẩm định",
+            "Thực hiện Thẩm định",
+            "Giới thiệu khoản vay",
+            "Mua - Bán BĐS"
+        ]
+    },
+    {
         "id": "officeCode",
-        "label": "Mã sàn",
-        "type": "text",
-        "placeholder": "Ví dụ: HCM-01",
-        "required": false
+        "label": "Người hỗ trợ trực tiếp",
+        "type": "select",
+        "placeholder": "Chọn người hỗ trợ nội bộ của Citics",
+        "required": false,
+        "options": [
+            "Không có người hỗ trợ",
+            "Nguyễn Hoàng Phúc",
+            "Đoàn Anh Đức",
+            "Nguyễn Đoàn Quyết Tiến",
+            "Nguyễn Cao Thùy Linh",
+            "Trần Duy Quang",
+            "Bùi Hữu Nghĩa",
+            "Lê Xuân Long Vũ",
+            "Nguyễn Thanh Tân",
+            "Phạm Văn Huy",
+            "Mai Nguyễn Tuấn Anh",
+            "Bùi Minh Đức",
+            "Hà Huy Lê",
+            "Ngô Hải Anh",
+            "Nguyễn Thị Thúy",
+            "Phan Thị Thu Dung",
+            "Nguyễn Minh Phụng",
+            "Võ Hoàng Long",
+            "Dương Hải Đăng"
+        ]
     }
 ]
