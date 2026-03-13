@@ -9,7 +9,7 @@ export const SuccessScreen = ({ onFinish }) => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, type: 'spring' }}
-            className="flex flex-col items-center justify-center text-center px-4"
+            className="flex flex-col items-center justify-center text-center px-4 min-h-full"
         >
             <div className="mb-5 relative">
                 <motion.div
