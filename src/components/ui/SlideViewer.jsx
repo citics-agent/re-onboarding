@@ -9,7 +9,7 @@ export const SlideViewer = ({ slides }) => {
 
     if (!slides || slides.length === 0) return null;
 
-    const imageIndex = Math.abs(page % slides.length);
+    const imageIndex = ((page % slides.length) + slides.length) % slides.length;
 
     const paginate = (newDirection) => {
         setPage([page + newDirection, newDirection]);

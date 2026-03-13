@@ -234,7 +234,7 @@ export const InputInfoScreen = ({ onNext, onBack }) => {
                             Quay lại
                         </Button>
                         <Button type="submit" className="w-2/3 text-sm md:text-base px-2">
-                            {currentPage < TOTAL_PAGES ? 'Tiếp tục' : 'Tiếp tục'}
+                            Tiếp tục
                         </Button>
                     </div>
                     </motion.form>
