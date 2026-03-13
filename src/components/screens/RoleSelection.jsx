@@ -7,20 +7,26 @@ import { motion } from 'framer-motion';
 const roles = [
     {
         id: 'Listing',
-        title: 'Agent Listing',
-        description: 'Chuyên phân tích & khai thác sản phẩm. Tập trung vào danh mục bán & cho thuê.',
+        title: 'Listing Agent (Thứ cấp)',
+        description: 'Tìm kiếm nguồn hàng, khảo sát, ký gửi và niêm yết tài sản.',
         icon: Home,
     },
     {
-        id: 'Buyer',
-        title: 'Agent Buyer',
-        description: 'Chuyên tư vấn & chăm sóc khách hàng mua. Dẫn dắt từ nhu cầu đến chốt giao dịch.',
+        id: 'Buyer_ThuCap',
+        title: 'Buyer Agent (Thứ cấp)',
+        description: 'Tìm kiếm khách mua, tư vấn và phối hợp giao dịch.',
+        icon: Users,
+    },
+    {
+        id: 'Buyer_SoCap',
+        title: 'Buyer Agent (Sơ cấp)',
+        description: 'Tư vấn sản phẩm dự án, hỗ trợ booking và theo dõi giao dịch.',
         icon: Users,
     },
     {
         id: 'Mortgages',
-        title: 'Agent Mortgages',
-        description: 'Chuyên tư vấn tài chính & hồ sơ vay vốn. Đồng hành cùng khách trong mọi giải pháp tín dụng.',
+        title: 'Mortgages Agent (Khoản vay)',
+        description: 'Tư vấn sơ bộ nhu cầu vay thế chấp. Tạo và theo dõi hồ sơ vay trên hệ thống.',
         icon: Landmark,
     }
 ];
