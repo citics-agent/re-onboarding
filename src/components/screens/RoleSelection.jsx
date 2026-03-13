@@ -37,7 +37,7 @@ export const RoleSelection = ({ onSelect, onBack }) => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="max-w-4xl w-full mx-auto text-center px-4 self-start pt-4"
+            className="max-w-4xl w-full mx-auto text-center px-4 pt-4"
         >
             <h2 className="text-2xl md:text-4xl font-black text-citics-blue mb-3 tracking-tight">Chọn Role thực hiện dịch vụ</h2>
             <p className="text-slate-600 font-medium mb-6">Lựa chọn này sẽ cung cấp thông tin về Role bạn sẽ thực hiện cùng CACN.</p>

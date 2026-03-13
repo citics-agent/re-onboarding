@@ -33,7 +33,7 @@ export const AppLayout = ({ children, progress = 0, showProgress = false }) => {
                 )}
 
                 {/* Main Content */}
-                <main className="flex-1 min-h-0 w-full max-w-7xl mx-auto px-4 pb-4 md:pb-6 flex flex-col items-center justify-center overflow-y-auto">
+                <main className="flex-1 min-h-0 w-full max-w-7xl mx-auto px-4 pb-4 md:pb-6 flex flex-col items-center justify-start overflow-y-auto">
                     {children}
                 </main>
 
