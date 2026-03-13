@@ -270,11 +270,6 @@ export const ModuleCard = ({ module, onStartQuiz, onBack, isRetry = false }) => 
                             <SlideViewer
                                 slides={content.slides}
                                 onPageChange={handlePageChange}
-                                progress={canStart ? null : {
-                                    completed: canStart,
-                                    percent: Math.min(100, ((displayTime / 1000 - remainingSeconds) / (displayTime / 1000)) * 100),
-                                    label: `Còn ${Math.floor(remainingSeconds / 60)}:${String(remainingSeconds % 60).padStart(2, '0')}`
-                                }}
                             />
                         ) : (
                             <div className="aspect-video bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-center text-slate-400 font-medium text-sm">
