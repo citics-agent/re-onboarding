@@ -270,6 +270,7 @@ export const ModuleCard = ({ module, onStartQuiz, onBack, isRetry = false }) => 
                             <SlideViewer
                                 slides={content.slides}
                                 onPageChange={handlePageChange}
+                                countdown={!canStart ? `${Math.floor(remainingSeconds / 60)}:${String(remainingSeconds % 60).padStart(2, '0')}` : null}
                             />
                         ) : (
                             <div className="aspect-video bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-center text-slate-400 font-medium text-sm">

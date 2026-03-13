@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Maximize, X } from 'lucide-react';
 
-export const SlideViewer = ({ slides, onPageChange }) => {
+export const SlideViewer = ({ slides, onPageChange, countdown }) => {
     const [[page, direction], setPage] = useState([0, 0]);
     const [isZoomed, setIsZoomed] = useState(false);
 
@@ -34,6 +34,13 @@ export const SlideViewer = ({ slides, onPageChange }) => {
             style={{ width: '100vw', height: '100dvh' }}
             onClick={() => setIsZoomed(false)}
         >
+            {/* Countdown clock */}
+            {countdown && (
+                <div className="absolute top-4 left-4 px-2.5 py-1 rounded-full bg-white/10 backdrop-blur-sm text-white/70 text-xs font-medium z-20">
+                    {countdown}
+                </div>
+            )}
+
             {/* Close */}
             <button
                 onClick={() => setIsZoomed(false)}
