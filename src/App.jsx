@@ -117,7 +117,10 @@ function App() {
     }
   };
 
+  const [isRetry, setIsRetry] = React.useState(false);
+
   const handleQuizFail = () => {
+    setIsRetry(true);
     // Reshuffle questions for the current module so the next attempt is fresh
     const moduleIndex = Math.floor((step - 2) / 2);
     const module = modulesData[moduleIndex];
@@ -191,7 +194,7 @@ function App() {
     switch (step) {
       case 0: return <WelcomeScreen onStart={handleStart} />;
       case 1: return <InputInfoScreen onNext={handleInfoSubmit} onBack={handleBack} />;
-      case 2: return <ModuleCard module={activeModules[0]} onStartQuiz={handleModuleComplete} onBack={handleBack} />;
+      case 2: return <ModuleCard module={activeModules[0]} onStartQuiz={handleModuleComplete} onBack={handleBack} isRetry={isRetry} />;
       case 3: return <QuizCard module={activeModules[0]} onPass={handleQuizPass} onFail={() => handleQuizFail()} onBack={handleBack} />;
       case 4: return <RoleSelection onSelect={handleRoleSelect} onBack={handleBack} />;
       case 5: return <SuccessScreen onFinish={handleFinish} />;

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Maximize, X } from 'lucide-react';
 
-export const SlideViewer = ({ slides }) => {
+export const SlideViewer = ({ slides, onPageChange, progress }) => {
     const [[page, direction], setPage] = useState([0, 0]);
     const [isZoomed, setIsZoomed] = useState(false);
 
@@ -12,7 +12,10 @@ export const SlideViewer = ({ slides }) => {
     const imageIndex = ((page % slides.length) + slides.length) % slides.length;
 
     const paginate = (newDirection) => {
-        setPage([page + newDirection, newDirection]);
+        const newPage = page + newDirection;
+        setPage([newPage, newDirection]);
+        const newIndex = ((newPage % slides.length) + slides.length) % slides.length;
+        onPageChange?.(newIndex);
     };
 
     const variants = {
@@ -74,6 +77,23 @@ export const SlideViewer = ({ slides }) => {
                     />
                 ))}
             </div>
+
+            {/* Reading progress */}
+            {progress && !progress.completed && (
+                <div className="absolute top-4 left-4 right-16 z-20" onClick={(e) => e.stopPropagation()}>
+                    <div className="flex items-center gap-3 px-3 py-2 rounded-full bg-white/10 backdrop-blur-md">
+                        <span className="text-white/80 text-xs font-medium whitespace-nowrap">
+                            {progress.label}
+                        </span>
+                        <div className="flex-1 h-1.5 bg-white/20 rounded-full overflow-hidden">
+                            <div
+                                className="h-full bg-amber-400 rounded-full transition-all duration-300"
+                                style={{ width: `${progress.percent}%` }}
+                            />
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* Hint */}
             <div className="absolute bottom-16 left-0 right-0 text-center text-white/50 text-xs z-20">

@@ -80,7 +80,7 @@ const PdfViewer = ({ url, title }) => {
     );
 };
 
-export const ModuleCard = ({ module, onStartQuiz, onBack }) => {
+export const ModuleCard = ({ module, onStartQuiz, onBack, isRetry = false }) => {
     const { id, title, description, content: rawContent, quiz } = module;
     // Resolve content URLs against Vite base path (for GitHub Pages sub-path)
     const content = { ...rawContent };
@@ -92,6 +92,84 @@ export const ModuleCard = ({ module, onStartQuiz, onBack }) => {
     }
     const moduleNum = String(id).padStart(2, '0');
     const questionCount = quiz?.length || 0;
+
+    // Training condition: show "Bắt đầu" only after 75% pages viewed OR 3 min elapsed
+    // Anti-cheat: each slide must be viewed for at least 2s to count, and flipping faster than 1s apart doesn't register
+    // Time fallback only activates after viewing at least 25% of slides (prevents idle waiting)
+    const totalSlides = content.slides?.length || 0;
+    const threshold = Math.ceil(totalSlides * 0.75);
+    const [validPages, setValidPages] = React.useState(new Set([0])); // anti-cheat: 2s dwell per page
+    const [visitedPages, setVisitedPages] = React.useState(new Set([0])); // raw page visits (anti-idle)
+    const [timeElapsed, setTimeElapsed] = React.useState(false);
+    const lastFlipTime = React.useRef(Date.now());
+    const dwellTimer = React.useRef(null);
+    const currentPage = React.useRef(0);
+
+    const MIN_DWELL_MS = 2000;  // must stay on a slide at least 2s for it to count
+    const MIN_FLIP_MS = 1000;   // ignore flips faster than 1s apart
+    const FALLBACK_MS = 3 * 60 * 1000; // 3 min for first attempt
+    const RETRY_MS = 60 * 1000;        // 1 min on retry
+    const displayTime = isRetry ? RETRY_MS : FALLBACK_MS;
+    const [remainingSeconds, setRemainingSeconds] = React.useState(displayTime / 1000);
+
+    React.useEffect(() => {
+        // Start dwell timer for first slide
+        dwellTimer.current = setTimeout(() => {
+            setValidPages(prev => new Set(prev).add(0));
+        }, MIN_DWELL_MS);
+        // Start the time fallback immediately
+        const timerId = setTimeout(() => setTimeElapsed(true), displayTime);
+        // Countdown ticker
+        const interval = setInterval(() => {
+            setRemainingSeconds(prev => {
+                if (prev <= 1) { clearInterval(interval); return 0; }
+                return prev - 1;
+            });
+        }, 1000);
+        return () => { clearTimeout(dwellTimer.current); clearTimeout(timerId); clearInterval(interval); };
+    }, []);
+
+    const handlePageChange = (pageIndex) => {
+        const now = Date.now();
+        const timeSinceLastFlip = now - lastFlipTime.current;
+
+        // Always count raw page visit (for anti-idle check)
+        setVisitedPages(prev => new Set(prev).add(pageIndex));
+
+        // Clear previous dwell timer
+        clearTimeout(dwellTimer.current);
+
+        // Ignore rapid flipping (anti-cheat)
+        if (timeSinceLastFlip < MIN_FLIP_MS) {
+            lastFlipTime.current = now;
+            currentPage.current = pageIndex;
+            // Still start dwell timer for the new page
+            dwellTimer.current = setTimeout(() => {
+                setValidPages(prev => new Set(prev).add(pageIndex));
+            }, MIN_DWELL_MS);
+            return;
+        }
+
+        // If user stayed long enough on the previous page, count it
+        if (timeSinceLastFlip >= MIN_DWELL_MS) {
+            setValidPages(prev => new Set(prev).add(currentPage.current));
+        }
+
+        lastFlipTime.current = now;
+        currentPage.current = pageIndex;
+
+        // Start dwell timer for the new page
+        dwellTimer.current = setTimeout(() => {
+            setValidPages(prev => new Set(prev).add(pageIndex));
+        }, MIN_DWELL_MS);
+    };
+
+    const minReadPages = Math.ceil(totalSlides * 0.5);
+    const hasReadEnough = visitedPages.size >= minReadPages;
+    const canStart = totalSlides === 0
+        || (isRetry
+            ? (timeElapsed && hasReadEnough)
+            : ((timeElapsed && hasReadEnough) || validPages.size >= threshold));
 
     return (
         <motion.div
@@ -139,7 +217,15 @@ export const ModuleCard = ({ module, onStartQuiz, onBack }) => {
                         </div>
                     ) : (
                         content.slides && content.slides.length > 0 ? (
-                            <SlideViewer slides={content.slides} />
+                            <SlideViewer
+                                slides={content.slides}
+                                onPageChange={handlePageChange}
+                                progress={canStart ? null : {
+                                    completed: canStart,
+                                    percent: Math.min(100, ((displayTime / 1000 - remainingSeconds) / (displayTime / 1000)) * 100),
+                                    label: `Còn ${Math.floor(remainingSeconds / 60)}:${String(remainingSeconds % 60).padStart(2, '0')}`
+                                }}
+                            />
                         ) : (
                             <div className="aspect-video bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-center text-slate-400 font-medium text-sm">
                                 Nội dung sẽ được cập nhật
@@ -154,11 +240,14 @@ export const ModuleCard = ({ module, onStartQuiz, onBack }) => {
                         Quay lại
                     </Button>
                     <Button
-                        onClick={onStartQuiz}
-                        className="w-2/3 shadow-lg shadow-citics-turquoise/20 font-semibold group px-2 text-sm md:text-base"
+                        onClick={canStart ? onStartQuiz : undefined}
+                        disabled={!canStart}
+                        className={`w-2/3 font-semibold group px-2 text-sm md:text-base transition-colors ${canStart ? 'shadow-lg shadow-citics-turquoise/20' : 'bg-slate-300 text-slate-500 cursor-not-allowed'}`}
                     >
-                        Bắt đầu
-                        <span className="ml-2 group-hover:translate-x-1 inline-block transition-transform">→</span>
+                        {canStart
+                            ? <>Bắt đầu <span className="ml-2 group-hover:translate-x-1 inline-block transition-transform">→</span></>
+                            : `${isRetry ? 'Đọc lại tài liệu' : 'Đọc tài liệu'} (${Math.floor(remainingSeconds / 60)}:${String(remainingSeconds % 60).padStart(2, '0')})`
+                        }
                     </Button>
                 </div>
             </Card>
