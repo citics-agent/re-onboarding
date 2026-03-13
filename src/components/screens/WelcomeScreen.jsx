@@ -16,7 +16,7 @@ export const WelcomeScreen = ({ onStart }) => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.5 }}
-            className="flex flex-col items-center justify-center text-center px-4"
+            className="flex flex-col items-center justify-center text-center px-4 min-h-full"
         >
             <h1 className="text-3xl md:text-6xl font-black text-citics-blue mb-4 tracking-tight">
                 MỞ KHOÁ TRUY CẬP <br /> CITICS AGENT <span className="text-citics-turquoise"> 2026 </span>
