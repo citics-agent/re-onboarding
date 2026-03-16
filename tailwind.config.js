@@ -16,6 +16,7 @@ export default {
         // Mapping old names to new for compatibility during refactor
         'citics-dark': '#0741DA',
         'citics-gold': '#11DAEF',
+        'citics-teal': '#04BFA6',
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],

@@ -271,6 +271,7 @@ export const InputInfoScreen = ({ onNext, onBack }) => {
                     value={formData[field.id] || ""}
                     onChange={(e) => handleChange(field.id, e.target.value)}
                     className={inputClass(field.id)}
+                    {...(field.type === 'tel' ? { maxLength: 10, inputMode: 'numeric' } : {})}
                   />
                 )}
 

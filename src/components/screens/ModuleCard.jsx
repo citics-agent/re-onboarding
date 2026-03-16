@@ -170,6 +170,9 @@ export const ModuleCard = ({
     return () => clearInterval(idleInterval);
   }, []);
 
+  const [hint, setHint] = React.useState(null);
+  const hintTimer = React.useRef(null);
+
   const handlePageChange = (pageIndex) => {
     const now = Date.now();
     const timeSinceLastFlip = now - lastFlipTime.current;
@@ -193,6 +196,13 @@ export const ModuleCard = ({
 
     // Ignore rapid flipping (anti-cheat)
     if (timeSinceLastFlip < MIN_FLIP_MS) {
+      // Show warning after 3 rapid flips
+      if (rapidFlipCount.current >= 3) {
+        clearTimeout(hintTimer.current);
+        setHint("Bạn đang lật trang hơi nhanh đấy, hãy đọc kỹ hơn nhé!");
+        hintTimer.current = setTimeout(() => setHint(null), 3000);
+        rapidFlipCount.current = 0;
+      }
       lastFlipTime.current = now;
       currentPage.current = pageIndex;
       // Still start dwell timer for the new page
@@ -235,9 +245,6 @@ export const ModuleCard = ({
     }
   }, [showTip]);
 
-  const [hint, setHint] = React.useState(null);
-  const hintTimer = React.useRef(null);
-
   const handleLockedClick = () => {
     clearTimeout(hintTimer.current);
     let msg;
@@ -246,8 +253,16 @@ export const ModuleCard = ({
       rapidFlipCount.current = 0;
     } else if (isIdling && !hasReadEnough) {
       msg = "Còn nhiều nội dung đang đợi bạn hoàn thành...";
-    } else {
+    } else if (!timeElapsed) {
+      const mins = Math.floor(remainingSeconds / 60);
+      const secs = remainingSeconds % 60;
+      msg = `Vui lòng đọc tài liệu thêm ${mins > 0 ? `${mins} phút ` : ''}${secs} giây nữa nhé!`;
+    } else if (validPages.size < threshold) {
+      msg = `Hãy đọc kỹ hơn nhé! (${validPages.size}/${threshold} trang đã đọc đủ)`;
+    } else if (!hasReadEnough) {
       msg = `Hãy xem thêm tài liệu nhé! (${visitedPages.size}/${totalSlides} trang)`;
+    } else {
+      msg = "Sắp xong rồi, chờ chút nhé!";
     }
     setHint(msg);
     hintTimer.current = setTimeout(() => setHint(null), 3000);

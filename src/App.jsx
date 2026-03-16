@@ -39,6 +39,14 @@ function App() {
   const [documentViewDuration, setDocumentViewDuration] = useState(0);
   // Holds remote question bank fetched silently in the background
   const remoteBankRef = useRef(null);
+  // Admin skip: add ?skip to URL to jump to Role Selection
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).has('skip')) {
+      setModuleScores({ module_1_score: 5 });
+      setStep(4);
+      console.log('[Admin] Skipped to Role Selection');
+    }
+  }, []);
 
   useEffect(() => {
     // Step 1: Immediately initialize with local fallback — no blocking
@@ -164,7 +172,7 @@ function App() {
     setStep((prev) => prev - 1); // Go back to re-read the module
   };
 
-  const handleRoleSelect = async (role) => {
+  const handleRoleSelect = async (role, secondaryRoles = []) => {
     setIsLoading(true);
     const totalScore = Object.values(moduleScores).reduce((a, b) => a + b, 0);
     const totalQuestions = activeModules.reduce(
@@ -188,6 +196,7 @@ function App() {
       ...moduleScores,
       total_score: totalScore,
       role,
+      secondary_roles: secondaryRoles.join(','),
       timestamp: formattedTimestamp,
       duration: formattedDuration,
       document_view_duration: `${Math.floor(documentViewDuration / 60)} phút ${documentViewDuration % 60} giây`,
