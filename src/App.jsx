@@ -20,11 +20,10 @@ const QUESTIONS_PER_MODULE = 5;
 // Steps Mapping (1 Module):
 // 0: Welcome
 // 1: Input Info
-// 2: Module 2
-// 3: Quiz 2
-// 4: Role Selection
-// 5: Success
-const TOTAL_APP_STEPS = 4; // Steps 1-4 (excluding Welcome/Success)
+// 2: Module
+// 3: Quiz
+// 4: Success
+const TOTAL_APP_STEPS = 3; // Steps 1-3 (excluding Welcome/Success)
 
 function App() {
   const [step, setStep] = useState(0);
@@ -141,7 +140,36 @@ function App() {
     const isLastModule = moduleIndex === activeModules.length - 1;
 
     if (isLastModule) {
-      setStep(4); // Go to RoleSelection
+      // Submit data and go to Success (skip Role Selection)
+      setIsLoading(true);
+      const totalScore = Object.values(updatedScores).reduce((a, b) => a + b, 0);
+      const totalQuestions = activeModules.reduce(
+        (acc, m) => acc + m.quiz.length,
+        0
+      );
+      const durationSeconds = startTime
+        ? Math.floor((Date.now() - startTime) / 1000)
+        : 0;
+      const formattedDuration = `${String(Math.floor(durationSeconds / 60)).padStart(2, "0")}:${String(durationSeconds % 60).padStart(2, "0")}`;
+      const gmt7Date = new Date(Date.now() + 7 * 3600 * 1000);
+      const formattedTimestamp = gmt7Date
+        .toISOString()
+        .replace("T", " ")
+        .substring(0, 19);
+
+      const finalData = {
+        ...userData,
+        ...updatedScores,
+        total_score: totalScore,
+        timestamp: formattedTimestamp,
+        duration: formattedDuration,
+        document_view_duration: `${Math.floor(documentViewDuration / 60)} phút ${documentViewDuration % 60} giây`,
+        status: `Passed (${totalScore}/${totalQuestions})`,
+      };
+
+      await submitData(finalData);
+      setIsLoading(false);
+      setStep(4); // Success
     } else {
       setStep((prev) => prev + 1); // Next module
     }
@@ -217,7 +245,7 @@ function App() {
 
   // Calculate global progress (steps 1-4)
   const globalProgress =
-    step >= 1 && step <= 4 ? Math.round((step / 4) * 100) : 0;
+    step >= 1 && step <= 3 ? Math.round((step / 3) * 100) : 0;
 
   const renderContent = () => {
     if (isLoading) {
@@ -255,10 +283,6 @@ function App() {
           />
         );
       case 4:
-        return (
-          <RoleSelection onSelect={handleRoleSelect} onBack={handleBack} />
-        );
-      case 5:
         return <SuccessScreen onFinish={handleFinish} />;
       default:
         return <div>Unknown Step</div>;
@@ -266,7 +290,7 @@ function App() {
   };
 
   return (
-    <AppLayout progress={globalProgress} showProgress={step >= 1 && step <= 4}>
+    <AppLayout progress={globalProgress} showProgress={step >= 1 && step <= 3}>
       {renderContent()}
     </AppLayout>
   );
