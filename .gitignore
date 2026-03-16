@@ -3,6 +3,8 @@ Git rules
 .env
 .env.*
 !.env.example
+!.env.development
+!.env.production
 
 # Logs
 logs
@@ -36,3 +38,10 @@ dist-ssr
 
 # Local Netlify folder
 .netlify
+
+# Cursor AI generated files
+.history/
+.history
+.cursor/
+*.cursor-*
+.cursorignore
