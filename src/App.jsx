@@ -121,57 +121,60 @@ function App() {
   };
 
   const handleQuizPass = async (score) => {
-    // Step 3 -> Module 1 (Index 0), Step 5 -> Module 2 (Index 1)
-    const moduleIndex = Math.floor((step - 2) / 2);
-    const updatedScores = {
-      ...moduleScores,
-      [`module_${moduleIndex + 1}_score`]: score,
-    };
-    setModuleScores(updatedScores);
-
-    // Gọi thêm API từ BE
-    await submitReOnboard({
-      score,
-      totalScore: QUESTIONS_PER_MODULE,
-      sessionId: userData?.sessionId,
-      extra: userData,
-    });
-
-    const isLastModule = moduleIndex === activeModules.length - 1;
-
-    if (isLastModule) {
-      // Submit data and go to Success (skip Role Selection)
-      setIsLoading(true);
-      const totalScore = Object.values(updatedScores).reduce((a, b) => a + b, 0);
-      const totalQuestions = activeModules.reduce(
-        (acc, m) => acc + m.quiz.length,
-        0
-      );
-      const durationSeconds = startTime
-        ? Math.floor((Date.now() - startTime) / 1000)
-        : 0;
-      const formattedDuration = `${String(Math.floor(durationSeconds / 60)).padStart(2, "0")}:${String(durationSeconds % 60).padStart(2, "0")}`;
-      const gmt7Date = new Date(Date.now() + 7 * 3600 * 1000);
-      const formattedTimestamp = gmt7Date
-        .toISOString()
-        .replace("T", " ")
-        .substring(0, 19);
-
-      const finalData = {
-        ...userData,
-        ...updatedScores,
-        total_score: totalScore,
-        timestamp: formattedTimestamp,
-        duration: formattedDuration,
-        document_view_duration: `${Math.floor(documentViewDuration / 60)} phút ${documentViewDuration % 60} giây`,
-        status: `Passed (${totalScore}/${totalQuestions})`,
+    setIsLoading(true); // show spinner IMMEDIATELY to block double-clicks during async submit
+    try {
+      // Step 3 -> Module 1 (Index 0), Step 5 -> Module 2 (Index 1)
+      const moduleIndex = Math.floor((step - 2) / 2);
+      const updatedScores = {
+        ...moduleScores,
+        [`module_${moduleIndex + 1}_score`]: score,
       };
+      setModuleScores(updatedScores);
 
-      await submitData(finalData);
+      // Gọi thêm API từ BE
+      await submitReOnboard({
+        score,
+        totalScore: QUESTIONS_PER_MODULE,
+        sessionId: userData?.sessionId,
+        extra: userData,
+      });
+
+      const isLastModule = moduleIndex === activeModules.length - 1;
+
+      if (isLastModule) {
+        // Submit data and go to Success (skip Role Selection)
+        const totalScore = Object.values(updatedScores).reduce((a, b) => a + b, 0);
+        const totalQuestions = activeModules.reduce(
+          (acc, m) => acc + m.quiz.length,
+          0
+        );
+        const durationSeconds = startTime
+          ? Math.floor((Date.now() - startTime) / 1000)
+          : 0;
+        const formattedDuration = `${String(Math.floor(durationSeconds / 60)).padStart(2, "0")}:${String(durationSeconds % 60).padStart(2, "0")}`;
+        const gmt7Date = new Date(Date.now() + 7 * 3600 * 1000);
+        const formattedTimestamp = gmt7Date
+          .toISOString()
+          .replace("T", " ")
+          .substring(0, 19);
+
+        const finalData = {
+          ...userData,
+          ...updatedScores,
+          total_score: totalScore,
+          timestamp: formattedTimestamp,
+          duration: formattedDuration,
+          document_view_duration: `${Math.floor(documentViewDuration / 60)} phút ${documentViewDuration % 60} giây`,
+          status: `Passed (${totalScore}/${totalQuestions})`,
+        };
+
+        await submitData(finalData);
+        setStep(4); // Success
+      } else {
+        setStep((prev) => prev + 1); // Next module
+      }
+    } finally {
       setIsLoading(false);
-      setStep(4); // Success
-    } else {
-      setStep((prev) => prev + 1); // Next module
     }
   };
 
@@ -283,7 +286,7 @@ function App() {
           />
         );
       case 4:
-        return <SuccessScreen onFinish={handleFinish} />;
+        return <SuccessScreen onFinish={handleFinish} userName={userData.fullName} userPhone={userData.phone} />;
       default:
         return <div>Unknown Step</div>;
     }
