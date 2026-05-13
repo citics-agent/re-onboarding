@@ -131,18 +131,17 @@ function App() {
       };
       setModuleScores(updatedScores);
 
-      // Gọi thêm API từ BE
-      await submitReOnboard({
+      const isLastModule = moduleIndex === activeModules.length - 1;
+
+      const reOnboardPayload = {
         score,
         totalScore: QUESTIONS_PER_MODULE,
         sessionId: userData?.sessionId,
         extra: userData,
-      });
-
-      const isLastModule = moduleIndex === activeModules.length - 1;
+      };
 
       if (isLastModule) {
-        // Submit data and go to Success (skip Role Selection)
+        // Compute final aggregate payload while submitReOnboard fires in parallel
         const totalScore = Object.values(updatedScores).reduce((a, b) => a + b, 0);
         const totalQuestions = activeModules.reduce(
           (acc, m) => acc + m.quiz.length,
@@ -168,9 +167,14 @@ function App() {
           status: `Passed (${totalScore}/${totalQuestions})`,
         };
 
-        await submitData(finalData);
+        // Fire both POSTs concurrently to halve wait time (was sequential ~4-5s → parallel ~2-3s)
+        await Promise.all([
+          submitReOnboard(reOnboardPayload),
+          submitData(finalData),
+        ]);
         setStep(4); // Success
       } else {
+        await submitReOnboard(reOnboardPayload);
         setStep((prev) => prev + 1); // Next module
       }
     } finally {
